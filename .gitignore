@@ -16,4 +16,4 @@
 !ip/**
 !riscv_tests/
 !riscv_tests/**
-!fix_tcl.py
+!fix_tcl.sh
