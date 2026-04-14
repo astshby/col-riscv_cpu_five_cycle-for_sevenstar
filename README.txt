@@ -17,7 +17,7 @@
    git checkout -b <branch_name>
    cd vivado-workspace
    rm cpu...
-   vivado -mode batch -source ../cpu-single.tcl
+   vivado -mode batch -source ../cpu-five.tcl
    vivado ...
    注意：只修改 vsrc/ 里面的代码，千万别改外面的东西！
 
@@ -25,7 +25,7 @@
    git status  （红色的字就是你修改过的文件）
 
 5.修改vivado的tcl：
-   write_project_tcl -force ../cpu-single.tcl
+   write_project_tcl -force ../cpu-five.tcl
    手动修改set origin_dir "."为 set origin_dir ".."
    手动修改ip核的读取定位为 ${origin_dir}/ip
    搜索你的用户名 找到所有绝对位置 改为相对位置
