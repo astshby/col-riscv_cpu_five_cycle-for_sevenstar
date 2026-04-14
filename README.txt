@@ -3,7 +3,7 @@
    cd col-riscv_cpu_five_cycle-for_sevenstar
    mkdir vivado-workspace
    cd vivado-workspace
-   vivado -mode batch -source ../cpu-single.tcl
+   vivado -mode batch -source ../cpu-five.tcl
 
 日常写代码
 1.更新到最新版本:
