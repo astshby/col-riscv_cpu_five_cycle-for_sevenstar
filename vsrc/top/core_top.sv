@@ -28,13 +28,27 @@ module core_top(
     input logic rst
     );
 
+
+
     IF_stage IF_stage(
-        
+        .clk(clk),
+        .rst(rst),
+        .stall(),
+        .jump(),
+        .jump_addr(),
+        .present_PC(),
+        .next_PC()
     );
 
     IF_ID_pipe IF_ID_pipe(
         .clk(clk),
-        .rst(rst)
+        .rst(rst),
+        .insert_bubble_to_ID(),
+        .hold_ID(),
+        .in_instruction(),
+        .in_pc(),
+        .out_instruction(),
+        .out_pc()
     );
 
     ID_stage ID_stage(
