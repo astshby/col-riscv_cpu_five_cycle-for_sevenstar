@@ -19,7 +19,7 @@ module IF_ID_pipe (
     logic reset_reg;
     assign reset_reg = rst | insert_bubble_to_ID;//冲刷掉或rst都是重置寄存器
 
-    always_ff @(posedge clk or posedge reset_reg) begin
+    always_ff @(posedge clk) begin
         if (reset_reg) begin
             out_instruction <= 32'h0000_0000; // 气泡指令,在ID阶段被解析为nop
             out_pc <= 32'h0000_0000; // PC值也重置为0,虽然这个值在ID阶段不太重要,但保持一致性

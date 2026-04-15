@@ -14,8 +14,13 @@ module IF_stage (
 );
 
 
-    always_ff @(posedge clk or posedge rst) begin//rst时候 会重置为npc设置的0地址
-        if (stall) begin
+    always_ff @(posedge clk) begin//rst时候 会重置为npc设置的0地址
+        if (rst) begin
+            present_PC <= next_PC; 
+            // 在 rst 时, 将 present_PC 重置为 next_PC
+            // next_PC 设置为起始地址
+        end
+        else if (stall) begin
             present_PC <= present_PC; // 保持当前PC不变
         end
         else begin
