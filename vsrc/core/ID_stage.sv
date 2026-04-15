@@ -5,11 +5,10 @@
 module ID_stage (
     input logic clk,
     input logic rst,
+
+    // 来自IF/ID寄存器的信息
     input logic [31:0] instruction, // 来自IF/ID寄存器的指令
     input logic [31:0] pc,          // 来自IF/ID寄存器
-    input logic [4:0]  rd_addr_WB,       // 来自WB阶段的写回数据
-    input logic [31:0] rd_data_WB,       // 来自WB阶段的写回数据
-    input logic wen,                // 来自WB阶段的写使能
 
     // 来自EX阶段的信息 用于前递给branch单元 用于判断load-use冒险
     input logic reg_write_EX,
@@ -23,22 +22,69 @@ module ID_stage (
     input logic [4:0] rd_addr_MEM,
     input logic [31:0] result_MEM,
 
-    output logic [31:0] rs1data_from_regfile, // 从寄存器堆读出的trs1数据传向
+    // 来自WB阶段的信息 写回(有穿透)
+    input logic [4:0]  rd_addr_WB,       // 来自WB阶段的写回数据
+    input logic [31:0] rd_data_WB,       // 来自WB阶段的写回数据
+    input logic wen,                // 来自WB阶段的写使能
+
+    // 跳转,气泡,停顿控制信号输出
+    output logic PC_jump,
+    output logic PC_hold,
+    output logic ID_hold,
+    output logic insert_bubble_to_ID,
+    output logic insert_bubble_to_EX,
+    output logic [31:0] branch_target, // 分支单元计算得到的分支目标地址，传递给IF阶段
+
+    // 传递给EX阶段的信息
+    output logic [31:0] rs1data_from_regfile, // 从寄存器堆读出的trs1数据(有WB穿透)
     output logic [31:0] rs2data_from_regfile, // 从寄存器堆读出的rs2数据
     output logic [31:0] imm,
-
-    output logic branch_taken,  // 分支单元的分支结果，传递给IF阶段和IF/ID寄存器 让IF更新 让ID阶段插入气泡
-    output logic [31:0] branch_target // 分支单元计算得到的分支目标地址，传递给IF阶段
 
 );
 
     logic [31:0] rs1data_after_forwarding; // 前递单元处理后的rs1数据，传递给分支单元进行比较
     logic [31:0] rs2data_after_forwarding; // 前递单元处理后的rs2数据，传递给分支单元进行比较
-    logic lu_conflict_from_branch_forwarding; // 来自分支前递单元的Load-Use冒险冲突信号，传递给IF/ID寄存器以插入气泡
 
-    // 现在还没想好得出lu冒险以后怎么发出控制信号
-    // branch_taken 这个也没有想好
-    // 其他的译码模块还没有做出来呢
+    logic branch_taken; // 分支单元计算得到的分支是否成立信号
+    logic lu_conflict_from_branch_forwarding; // 来自分支前递单元的Load-Use冒险冲突信号
+    logic lu_conflict_from_xxx; // 其他可能的Load-Use冒险冲突信号（例如来自普通前递单元的冲突）
+
+
+    // 得出分支以后 
+    // 1.应该让PC跳转 
+    // 2.让IF/ID寄存器插入一个气泡
+    // 得出lu冒险以后 (包括分支指令的lu冒险和普通指令的lu冒险)
+    // 1.应该让PC保持不变 
+    // 2.让IF/ID寄存器保持 (就是现在ID还会在下一周期干一样的事情,这样等待就解决了冒险) 
+    // 3.还应该给ID/EX寄存器插入气泡
+
+
+    // 停顿的优先级大于让pc跳转,因为如果有停顿,说明分支指令的条件还没有准备好,这个时候pc跳转了是错的,保持pc不变,等条件准备好了再跳转
+    always_comb begin
+        if(lu_conflict_from_branch_forwarding || lu_conflict_from_xxx)begin
+            PC_jump = 1'b0; // Load-Use冒险发生了，不发生分支跳转
+            PC_hold = 1'b1; // 发生Load-Use冒险，保持PC不变
+            ID_hold = 1'b1; // 发生Load-Use冒险，保持ID阶段不变
+            insert_bubble_to_ID = 1'b0; // ID阶段不需要插入气泡
+            insert_bubble_to_EX = 1'b1; // 发生Load-Use冒险，插入一个气泡到EX阶段
+        end
+        else if (branch_taken) begin
+            PC_jump = 1'b1; // 发生分支，PC需要跳转
+            PC_hold = 1'b0; 
+            ID_hold = 1'b0; // 分支发生了，ID阶段不需要保持不变
+            insert_bubble_to_ID = 1'b1; // 发生分支，插入一个气泡到ID阶段，刚取到的指令不要了
+            insert_bubble_to_EX = 1'b0; 
+            // 这个时候IF/ID寄存器会被冲刷掉，下一周期ID阶段会是一个nop指令
+        end
+        else begin
+            PC_jump = 1'b0; 
+            PC_hold = 1'b0;
+            ID_hold = 1'b0;
+            insert_bubble_to_ID = 1'b0; 
+            insert_bubble_to_EX = 1'b0; 
+            // 正常情况，不发生分支也没有冒险
+        end
+    end
 
     // 寄存器堆 (具有内部数据穿透功能)
     regfile regfile(
@@ -95,7 +141,6 @@ module ID_stage (
 
 endmodule
 
-//对于load-use冒险,如果ID阶段是use指令,EX阶段是load指令,则需要在ID阶段插入一个气泡,保持住use指令不动,让load指令先执行完,解决冒险
-//这个里面需要实现具体的逻辑是在IF_ID解析出ID当前是use ID_EX解析出EX当前是load,如果满足条件就发出insert_bubble_to_ID信号,
-//让IF_ID在下一个周期插入一个气泡,保持住use指令不动,让load指令先执行完,解决冒险
-//也能设置一个寄存器 就存一下上一个是不是load(到时候看时序)
+// 其他类型的load-use冒险的判断 就看ID是add EX是load 
+// 那就 PC ID hold, ID/EX插入气泡,让ID阶段保持不变,load走到了mem
+// 再到下周期时候 add在EX load 在rb 这个时候前递就好了

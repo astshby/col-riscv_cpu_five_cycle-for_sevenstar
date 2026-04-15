@@ -36,12 +36,15 @@ module core_top(
     logic [31:0] PC_to_ID; 
     //这样子命名看着连线清晰 form/to_某一个流水级
 
+    logic PC_jump, PC_hold, ID_hold, insert_bubble_to_ID, insert_bubble_to_EX;
+    logic [31:0] branch_target;
+    
     IF_stage IF_stage(
         .clk(clk),
         .rst(rst),
-        .stall(),
-        .jump(),
-        .jump_addr(),
+        .hold(PC_hold),
+        .jump(PC_jump),
+        .jump_addr(branch_target),
         .present_PC(PC_from_IF),// 传递给IF/ID寄存器
         .next_PC(next_PC)  // 传递给指令存储器(core以外)
     );
@@ -49,8 +52,8 @@ module core_top(
     IF_ID_pipe IF_ID_pipe(
         .clk(clk),
         .rst(rst),
-        .insert_bubble_to_ID(),
-        .hold_ID(),
+        .insert_bubble_to_ID(insert_bubble_to_ID),
+        .hold_ID(ID_hold),
         .in_instruction(instruction_from_memory),
         .in_pc(PC_from_IF),
         .out_instruction(instruction_to_ID),
@@ -58,6 +61,31 @@ module core_top(
     );
 
     ID_stage ID_stage(
+        .clk(clk),
+        .rst(rst),
+        .instruction(instruction_to_ID), // 来自IF/ID寄存器的指令
+        .pc(PC_to_ID), // 来自IF/ID寄存器的PC值
+
+        .reg_write_EX(),
+        .mem_read_EX(),
+        .rd_addr_EX(),
+        .alu_result_EX(),
+
+        .reg_write_MEM(),
+        .mem_read_MEM(),
+        .rd_addr_MEM(),
+        .result_MEM(),
+
+        .rd_addr_WB(), 
+        .rd_data_WB(), 
+        .wen(), 
+
+        .PC_jump(PC_jump),
+        .PC_hold(PC_hold),
+        .ID_hold(ID_hold),
+        .insert_bubble_to_ID(insert_bubble_to_ID),
+        .insert_bubble_to_EX(insert_bubble_to_EX),
+        .branch_target(branch_target) // 分支单元计算得到的分支目标地址，传递给IF阶段
     );
 
     ID_EX_pipe ID_EX_pipe(
