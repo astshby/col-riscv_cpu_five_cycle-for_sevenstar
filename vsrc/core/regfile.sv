@@ -11,7 +11,7 @@
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
-// Description: 
+// Description:  带有内部数据穿透（Write-Through）的寄存器堆
 // 
 // Dependencies: 
 // 
@@ -21,48 +21,58 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
 module regfile(
     input logic clk,
     input logic rst,
-    input logic [`RegAddrBus] rs1addr,
-    input logic [`RegAddrBus] rs2addr,
-    input logic [`RegAddrBus] rdaddr,
-    input logic [`RegBus] wdata,
+    input logic [4:0] rs1addr,
+    input logic [4:0] rs2addr,
+    input logic [4:0] rdaddr,
+    input logic [31:0] wdata,
     input logic wen,
-    output logic [`RegBus] rs1data,
-    output logic [`RegBus] rs2data
+    output logic [31:0] rs1data,
+    output logic [31:0] rs2data
     );
 
-    reg [`RegBus] regs [1:`RegNum-1];
+    // 声明31个32位寄存器，地址从1到31（0号寄存器硬件恒为0）
+    reg [31:0] regs [1:31];
 
+    // 读端口 - 组合逻辑
     always_comb begin : rs_read
-        if(rst == 1'b1) begin 
-            rs1data = 0;
-            rs2data = 0;
-            // rst时读出0
+        if (rst == 1'b1) begin 
+            rs1data = 32'b0;
+            rs2data = 32'b0;
+        end else begin
+            // RS1 读出逻辑与穿透判断
+            if (rs1addr == 5'b0) begin
+                rs1data = 32'b0;
+            end else if ((wen == 1'b1) && (rs1addr == rdaddr)) begin
+                rs1data = wdata;  // 写穿透：直接读出正在写入的新数据
+            end else begin
+                rs1data = regs[rs1addr];
+            end
+
+            // RS2 读出逻辑与穿透判断
+            if (rs2addr == 5'b0) begin
+                rs2data = 32'b0;
+            end else if ((wen == 1'b1) && (rs2addr == rdaddr)) begin
+                rs2data = wdata;  // 写穿透：直接读出正在写入的新数据
+            end else begin
+                rs2data = regs[rs2addr];
+            end
         end
-        else begin
-            rs1data = (rs1addr != 0) ? regs[rs1addr] : 0;
-            rs2data = (rs2addr != 0) ? regs[rs2addr] : 0;
-            // x0寄存器永远为0，所以读出时如果地址为0则直接输出0，不需要访问regs数组
-        end
-        
     end : rs_read
 
+    // 写端口 - 时序逻辑
     always_ff @(posedge clk) begin : reg_write
-        if(rst == 1'b1) begin 
+        if (rst == 1'b1) begin 
             integer i;
             for(i = 1; i < `RegNum; i = i + 1) begin
-                regs[i] <= 0;
+                regs[i] <= 32'b0;
             end
-            //rst时写入0
         end
-        else if(wen == 1'b1 && rdaddr != 0) begin
+        else if (wen == 1'b1 && rdaddr != 5'b0) begin
             regs[rdaddr] <= wdata;
-            //写寄存器时，如果wen有效且地址不为0，则写入数据
         end
     end : reg_write
-
 
 endmodule

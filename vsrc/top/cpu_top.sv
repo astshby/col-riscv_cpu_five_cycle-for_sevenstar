@@ -29,15 +29,20 @@ module cpu_top(
 
 );
 
+    logic [31:0] next_PC_to_ins_mem;
+    logic [31:0] instruction_from_memory;
+
     core_top core_top(
         .clk(clk),
-        .rst(rst)
+        .rst(rst),
+        .next_PC(next_PC_to_ins_mem),
+        .instruction_from_memory(instruction_from_memory)
     );
 
     ins_mem ins_mem(
         clka(clk),
-        addra(next_pc[14:2]), // 地址线，word地址
-        douta(persent_inst) // 指令输出
+        addra(next_PC_to_ins_mem[14:2]), // 地址线，word地址
+        douta(instruction_from_memory) // 指令输出
     );
 
 
