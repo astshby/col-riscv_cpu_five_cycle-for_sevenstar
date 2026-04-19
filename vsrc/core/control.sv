@@ -95,7 +95,7 @@ module control(
                 is_jump_or_branch = 0;
             end
 
-            // Store 指令 (SW, SB 等)：需要 rs1 算基址，rs2 作为写入数据源
+            // Store 指令 (SW, SB 等)：需要 rs1 算基址
             `OPCODE_S: begin
                 gen_imm_op = `Sext_S;
                 alu_sel    = `ALU_SEL_ADD;
@@ -106,7 +106,7 @@ module control(
                 mem_read   = 0;
                 mem_write  = 1;
                 use_rs1    = 1;
-                use_rs2    = 1; // Store 指令消耗 rs2 作为写入数据源，需要停顿检测
+                use_rs2    = 0; // 不算用到,不用停顿
                 is_jump_or_branch = 0; 
             end
 
