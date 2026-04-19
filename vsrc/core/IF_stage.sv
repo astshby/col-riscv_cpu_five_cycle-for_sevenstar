@@ -30,7 +30,7 @@ module IF_stage (
 
     always_comb begin
         if (rst) begin
-            next_PC = 32'h0000_0000;
+            next_PC = 32'hFFFF_FFFC;
             //在rst时,在下一个上升沿PC被重置为0
             //同时指令存储器也会取出0地址的指令,保证程序从0地址开始执行
         end

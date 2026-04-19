@@ -292,7 +292,7 @@ module core_top(
         .is_jump_or_branch_ID(is_jump_or_branch), // 由 ID_stage 根据指令 opcode 判断是否是跳转或分支指令
         .branch_taken_raw(branch_taken), // 由 ID_stage 的分支单元计算得到的原始分支跳转请求
 
-        .rd_addr_EX(rs1_addr_to_EX), // 来自 EX 阶段的目的寄存器地址 rd (ID/EX 寄存器传递)
+        .rd_addr_EX(rd_addr_to_EX), // 来自 EX 阶段的目的寄存器地址 rd (ID/EX 寄存器传递)
         .mem_read_EX(mem_read_to_EX), // 来自 EX 阶段的 mem_read 信号 (ID/EX 寄存器传递)
         .reg_write_EX(reg_write_to_EX), // 来自 EX 阶段的 reg_write 信号 (ID/EX 寄存器传递)
 
