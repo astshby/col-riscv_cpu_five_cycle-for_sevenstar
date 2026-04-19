@@ -52,6 +52,9 @@ module mem_mux(
     
     always_comb begin : load_sel 
         rd_ld_out = 32'b0;
+        ext_val   = 1'b0;
+        ext_byte  = 8'b0;
+        ext_half  = 16'b0;
         
         // 注意：这里删除了 re_out，因为不需要了
         if(mem_re) begin

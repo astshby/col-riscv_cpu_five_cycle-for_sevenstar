@@ -84,6 +84,11 @@ module core_top(
     logic [1:0] forward_A_sel_EX, forward_B_sel_EX;
     logic forward_data_sel_MEM;
 
+    // WB→MEM store-data forwarding mux:
+    // 当 forward_data_sel_MEM 有效时，用 WB 阶段的最新数据替换 EX/MEM 寄存器传来的 rs2 数据
+    logic [31:0] rs2_data_to_MEM_fwd;
+    assign rs2_data_to_MEM_fwd = forward_data_sel_MEM ? wb_data : rs2_data_to_MEM;
+
 
 
     logic use_rs1, use_rs2, is_jump_or_branch, branch_taken;
@@ -241,7 +246,7 @@ module core_top(
         .mem_we(mem_write_to_MEM),    // MEM阶段是否要写数据存储器 (由控制单元生成)
         .funct3(func3_to_MEM), // MEM阶段指令的 funct3 字段 (由控制单元生成,通常是 ALU 操作码的最低三位)
         .alu_result(alu_result_to_MEM),      // MEM阶段访问数据存储器的地址 (来自 EX/MEM 寄存器的 ALU 结果)
-        .rs2_sd_in(rs2_data_to_MEM),    // MEM阶段准备写入的数据 (store_data, 来自 EX/MEM 寄存器的 rs2 数据)
+        .rs2_sd_in(rs2_data_to_MEM_fwd),    // MEM阶段准备写入的数据 (store_data, WB前递或EX/MEM寄存器的rs2数据)
         .rd_ld_out(rd_ld_from_MEM),  // 从 BRAM 读出的原始 32 位数据经过处理后给寄存器的数据 (传回 EX_MEM_pipe 再传给 WB阶段)
 
         .data_store(data_store),
