@@ -53,12 +53,7 @@
 `define ALU_SRA 7
 `define ALU_SLT 8
 `define ALU_SLTU 9
-`define ALU_BEQ 10
-`define ALU_BNE 11
-`define ALU_BLT 12
-`define ALU_BLTU 13
-`define ALU_BGE 14
-`define ALU_BGEU 15
+`define ALU_NOP 15
 
 
 // DRAM操作与状态

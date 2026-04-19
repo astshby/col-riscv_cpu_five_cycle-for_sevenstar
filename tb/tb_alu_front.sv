@@ -80,7 +80,6 @@ module tb_alu_front();
 
         // 测试 ALU_OP 二级译码
         test_op(`ALU_SEL_ADD,    3'b000, 7'b0000000, `ALU_ADD, "Force ADD (e.g. Load/Store)");
-        test_op(`ALU_SEL_SUB,    3'b000, 7'b0000000, `ALU_BEQ, "Branch (BEQ)");
         test_op(`ALU_SEL_OTHERS, 3'b000, 7'b0000000, `ALU_ADD, "R-Type (ADD)");
         test_op(`ALU_SEL_OTHERS, 3'b000, 7'b0100000, `ALU_SUB, "R-Type (SUB)");
         test_op(`ALU_SEL_OTHERS, 3'b111, 7'b0000000, `ALU_AND, "R-Type (AND)");

@@ -78,25 +78,7 @@ module tb_alu();
         alu_op = `ALU_SLTU; #10; $display("SLTU : (MAX < 5) 无符号比较 = %b (预期: 0)", result[0]);
 
 
-        // --------------------------------------------------------
-        // 阶段 4：分支跳转指令判断
-        // --------------------------------------------------------
-        $display("\n--- Stage 4: Branch Conditions ---");
         
-        // 测试相等与不等
-        A = 32'd10; B = 32'd10;
-        alu_op = `ALU_BEQ; #10; $display("BEQ  : (10 == 10) = %b (预期: 1)", result[0]);
-        alu_op = `ALU_BNE; #10; $display("BNE  : (10 != 10) = %b (预期: 0)", result[0]);
-
-        // 测试有符号/无符号的大于等于与小于
-        A = 32'hFFFFFFFB; // -5 (补码)
-        B = 32'd10;       // 10
-        alu_op = `ALU_BLT;  #10; $display("BLT  : (-5 < 10) 有符号 = %b (预期: 1)", result[0]);
-        alu_op = `ALU_BGE;  #10; $display("BGE  : (-5 >= 10) 有符号 = %b (预期: 0)", result[0]);
-        
-        alu_op = `ALU_BLTU; #10; $display("BLTU : (-5 < 10) 无符号 = %b (预期: 0)", result[0]);
-        alu_op = `ALU_BGEU; #10; $display("BGEU : (-5 >= 10) 无符号 = %b (预期: 1)", result[0]);
-
         $display("================================================");
         $display("               ALU Testbench Done               ");
         $display("================================================");

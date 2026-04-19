@@ -27,7 +27,7 @@ module branch_unit(
     input  logic [31:0] rs2data,      // 经过前递(Forwarding)处理后的 rs2 数据
     input  logic [31:0] imm,          // 外部立即数生成单元算好的立即数
     
-    output logic        branch_taken, // 1: 发生跳转; 0: 不跳转 (顺序执行)
+    output logic        branch_taken, // 1: 发生跳转; 0: 不跳转
     output logic [31:0] branch_target // 计算出的跳转目标地址
     );
 
