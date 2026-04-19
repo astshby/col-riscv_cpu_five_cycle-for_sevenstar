@@ -27,23 +27,33 @@ module mem_mux(
     input  logic mem_re,    
     input  logic mem_we,     
     input  logic [2:0] funct3,
-    input  logic [1:0] addr,
-    input  logic [31:0] rs2_sd_in,   // sd:store_data,ld:load_data
-    input  logic [31:0] dram_ld_in, 
-    output logic [3:0]  re_out,      // 片选使能
-    output logic [3:0]  we_out,      // 片选使能
-    output logic [31:0] dram_sd_out,   
-    output logic [31:0] rd_ld_out          
+    input  logic [1:0] addr,         // 地址的最低两位 (data_addr[1:0])
+    input  logic [31:0] rs2_sd_in,   // 准备写入的数据 (store_data)
+    input  logic [31:0] dram_ld_in,  // 从 BRAM 读出的原始 32 位数据
+    
+    // --- 修改后的输出接口 ---
+    output logic        ena_out,     // 统一的芯片使能 (接 data_mem 的 ena)
+    output logic [3:0]  we_out,      // 字节写使能 (接 data_mem 的 wea)
+    output logic [31:0] dram_sd_out, // 对齐后的写入数据 (接 data_mem 的 dina)
+    output logic [31:0] rd_ld_out    // 截取/符号扩展后给寄存器的数据
 );
 
-    // load
+    // ==========================================
+    // 统一使能信号：只要有读或写请求，就使能 BRAM
+    // ==========================================
+    assign ena_out = mem_re | mem_we;
+
+    // ==========================================
+    // Load 逻辑：从 32 位数据中截取需要的 Byte/Halfword 并扩展
+    // ==========================================
     logic ext_val;
     logic [7:0] ext_byte;
     logic [15:0] ext_half;
+    
     always_comb begin : load_sel 
         rd_ld_out = 32'b0;
-        re_out = 4'b0000; //永远不要在不读取的时候读取
         
+        // 注意：这里删除了 re_out，因为不需要了
         if(mem_re) begin
             case (funct3[1:0])
                 `DRAM_SEL_B: begin
@@ -51,34 +61,30 @@ module mem_mux(
                                             ((addr[0]) ? dram_ld_in[15:8] : dram_ld_in[7:0]) ;
                     ext_val = funct3[2] ? 1'b0 : ext_byte[7]; 
                     rd_ld_out = {{24{ext_val}}, ext_byte};
-                    re_out = 4'b1111;
                 end
 
                 `DRAM_SEL_H: begin
                     ext_half = (addr[1]) ? dram_ld_in[31:16] : dram_ld_in[15:0];
                     ext_val  = funct3[2] ? 1'b0 : ext_half[15];
                     rd_ld_out = {{16{ext_val}}, ext_half};
-                    re_out = 4'b1111;
                 end
 
                 `DRAM_SEL_W: begin
                     rd_ld_out = dram_ld_in;
-                    re_out = 4'b1111;
                 end
 
                 default: begin
                     rd_ld_out = 32'b0;
-                    re_out = 4'b0000;
                 end
             endcase
         end
     end : load_sel    
     
-
-    // store
-    // 由于要选择数据，直接把32位复制多个供选择，we_out提供写使能
+    // ==========================================
+    // Store 逻辑：生成写数据副本和对应的 4-bit 字节使能
+    // ==========================================
     always_comb begin : store_sel
-        we_out = 4'b0000;  //永远不要在不写入的时候写入
+        we_out = 4'b0000;  // 默认不写
         dram_sd_out = 32'd0;
         
         if(mem_we) begin
@@ -105,4 +111,5 @@ module mem_mux(
             endcase         
         end
     end : store_sel
+
 endmodule

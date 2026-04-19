@@ -10,9 +10,9 @@ module IF_stage (
     input logic [31:0] jump_addr, // 来自ID阶段分支单元的jump地址
     output logic [31:0] present_PC, // 当前PC值，传递给IF/ID寄存器
     output logic [31:0] next_PC // 计算得到的下一个PC值，传递给指令存储器
-    
 );
-
+    logic [31:0] PC_4; // 当前PC加4的值，指向下一条指令的地址
+    assign PC_4 = present_PC + 32'h4; // 当前PC加4，指向下一条指令的地址
 
     always_ff @(posedge clk) begin//rst时候 会重置为npc设置的0地址
         if (rst) begin
@@ -39,7 +39,7 @@ module IF_stage (
             // 在需要跳转时,下一个上升沿将PC更新为jump_addr,实现跳转
         end
         else begin
-            next_PC = present_PC + 32'h4;
+            next_PC = PC_4;
             // 正常情况下,PC每次增加4,指向下一条指令
         end
     end

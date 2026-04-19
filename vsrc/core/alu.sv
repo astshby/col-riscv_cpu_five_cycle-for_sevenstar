@@ -42,15 +42,8 @@ module alu(
             `ALU_SRA: result = $signed(A) >>> B[4:0];
             `ALU_SLT: result = ($signed(A) < $signed(B)) ? 1 : 0;
             `ALU_SLTU: result = (A < B) ? 1 : 0;
-            `ALU_BEQ: result = (A == B) ? 1 : 0;
-            `ALU_BNE: result = (A != B) ? 1 : 0;
-            `ALU_BLT: result = ($signed(A) < $signed(B)) ? 1 : 0;
-            `ALU_BLTU: result = (A < B) ? 1 : 0;
-            `ALU_BGE: result = ($signed(A) >= $signed(B)) ? 1 : 0;
-            `ALU_BGEU: result = (A >= B) ? 1 : 0;
             default: result = 0;
         endcase
-        //按理说只用一个加法器 先assign A+B 其他的操作都可以通过修改B的值来实现
         
     end : alu_calculate
 endmodule
