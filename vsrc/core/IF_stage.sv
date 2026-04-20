@@ -3,47 +3,60 @@
 `include "define.vh"
 
 module IF_stage (
-    input logic clk,
-    input logic rst,
-    input logic hold,  // 来自分支单元的stall信号,发生停顿
-    input logic jump,   // 来自ID阶段分支单元的jump信号，表示需要跳转
-    input logic [31:0] jump_addr, // 来自ID阶段分支单元的jump地址
-    output logic [31:0] present_PC, // 当前PC值，传递给IF/ID寄存器
-    output logic [31:0] next_PC // 计算得到的下一个PC值，传递给指令存储器
+    input  logic        clk,
+    input  logic        rst,
+    input  logic        hold,       // 来自分支单元的stall信号,发生停顿
+    input  logic        jump,       // 来自ID阶段分支单元的jump信号，表示需要跳转
+    input  logic [31:0] jump_addr,  // 来自ID阶段分支单元的jump地址
+    output logic [31:0] present_PC // 当前PC值，传递给IF/ID寄存器
 );
-    logic [31:0] PC_4; // 当前PC加4的值，指向下一条指令的地址
-    assign PC_4 = present_PC + 32'h4; // 当前PC加4，指向下一条指令的地址
 
-    always_ff @(posedge clk) begin//rst时候 会重置为0地址
+    logic [31:0] PC_4, next_PC;
+    assign PC_4 = present_PC + 32'h4;
+
+    // =========================================================================
+    // 核心新增：启动标志位 (First Cycle Flag)
+    // 作用：在 rst 释放后的第一个时钟周期内保持为 1，强行将 next_PC 锁在 0 地址
+    // =========================================================================
+    logic first_cycle_flag;
+
+    always_ff @(posedge clk) begin
+        if (rst) begin
+            first_cycle_flag <= 1'b1; // 复位时，标志位拉高
+        end else begin
+            first_cycle_flag <= 1'b0; // 复位释放后的下一个时钟沿，标志位清零
+        end
+    end
+
+    // =========================================================================
+    // PC 寄存器更新
+    // =========================================================================
+    always_ff @(posedge clk) begin
         if (rst) begin
             present_PC <= 32'h0000_0000; 
-            // 在 rst 时, 将 present_PC 显式重置为 0（起始地址）
         end
         else if (hold) begin
-            present_PC <= present_PC; // 保持当前PC不变
+            present_PC <= present_PC; 
         end
         else begin
             present_PC <= next_PC;
         end
     end
 
+    // =========================================================================
+    // next_PC 组合逻辑计算
+    // =========================================================================
     always_comb begin
-        if (rst) begin
+        // 注意这里：只要是 rst 期间，或者刚解除 rst 的第一个周期，强制发 0 地址
+        if (rst || first_cycle_flag) begin
             next_PC = 32'h0000_0000;
-            //在rst时,指令存储器取出0地址的指令,保证程序从0地址开始执行
         end
         else if (jump) begin
             next_PC = jump_addr; 
-            // 在需要跳转时,下一个上升沿将PC更新为jump_addr,实现跳转
         end
         else begin
             next_PC = PC_4;
-            // 正常情况下,PC每次增加4,指向下一条指令
         end
     end
-
-
-
-
 
 endmodule

@@ -34,11 +34,13 @@ module alu_op(
     // I指令没有sub
     // 保持others，传入opcode
 
-
     always_comb begin
         case (alu_sel)
+
             `ALU_SEL_ADD: alu_opcode = `ALU_ADD;
+
             `ALU_SEL_OTHERS: begin
+
                 case (funct3)
                    `FUNCT3_ADD_SUB: begin
                         if(opcode_6) begin
@@ -58,9 +60,14 @@ module alu_op(
                     `FUNCT3_SLT: alu_opcode = `ALU_SLT;
                     `FUNCT3_SLTU: alu_opcode = `ALU_SLTU;
                     default: alu_opcode = `ALU_NOP;
-                endcase 
+                endcase
+
             end
+
+            `ALU_SEL_NO: alu_opcode = `ALU_NOP;
+
             default: alu_opcode = `ALU_NOP;
+
         endcase
     end
 endmodule

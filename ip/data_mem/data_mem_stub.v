@@ -2,10 +2,10 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-// Date        : Sun Apr 19 20:59:34 2026
+// Date        : Mon Apr 20 20:18:16 2026
 // Host        : lin-COSMOS running 64-bit Ubuntu 24.04.4 LTS
-// Command     : write_verilog -force -mode synth_stub -rename_top data_mem -prefix
-//               data_mem_ data_mem_stub.v
+// Command     : write_verilog -force -mode synth_stub
+//               /home/linxiaoyuan/cpu_collaboration/col-riscv_cpu_five_cycle-for_sevenstar/ip/data_mem/data_mem_stub.v
 // Design      : data_mem
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tfgg484-2

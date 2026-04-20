@@ -26,11 +26,11 @@
 module core_top(
     input logic clk,
     input logic rst,
-    output logic [31:0] PC_from_IF, // 传递给 IF/ID 寄存器
 
     // 连接指令存储器的接口
-    output logic [31:0] next_PC, // 传递给指令存储器(core以外)
+    output logic [31:0] PC, // 传递给指令存储器(core以外)
     input logic [31:0] instruction_from_memory,
+    output logic ena_ins_mem, // 连接指令存储器的使能信号
 
     // 连接数据存储器的接口
     output logic [31:0] data_store, // MEM阶段要写入数据存储器的数据
@@ -40,7 +40,6 @@ module core_top(
     output logic mem_ena // MEM阶段访问数据存储器的使能信号
     );
 
-    // logic [31:0] PC_from_IF; 
     logic [31:0] instruction_to_ID; 
     logic [31:0] PC_to_ID; 
     logic [31:0] branch_target;
@@ -83,18 +82,13 @@ module core_top(
     logic [1:0] forward_A_sel_ID, forward_B_sel_ID;
     logic [1:0] forward_A_sel_EX, forward_B_sel_EX;
     logic forward_data_sel_MEM;
-
-    // WB→MEM store-data forwarding mux:
-    // 当 forward_data_sel_MEM 有效时，用 WB 阶段的最新数据替换 EX/MEM 寄存器传来的 rs2 数据
-    logic [31:0] rs2_data_to_MEM_fwd;
-    assign rs2_data_to_MEM_fwd = forward_data_sel_MEM ? wb_data : rs2_data_to_MEM;
-
+    logic [31:0] forward_data_from_MEM;
 
 
     logic use_rs1, use_rs2, is_jump_or_branch, branch_taken;
     logic PC_jump, PC_hold, hold_ID, insert_bubble_to_ID, insert_bubble_to_EX;
 
-
+    assign ena_ins_mem = ~hold_ID;
 
     IF_stage IF_stage(
         .clk(clk),
@@ -102,8 +96,7 @@ module core_top(
         .hold(PC_hold),
         .jump(PC_jump),
         .jump_addr(branch_target),
-        .present_PC(PC_from_IF),// 传递给IF/ID寄存器
-        .next_PC(next_PC)  // 传递给指令存储器(core以外)
+        .present_PC(PC)// 传递给IF/ID寄存器
     );
 
     IF_ID_pipe IF_ID_pipe(
@@ -112,7 +105,7 @@ module core_top(
         .insert_bubble_to_ID(insert_bubble_to_ID),
         .hold_ID(hold_ID),
         .in_instruction(instruction_from_memory),
-        .in_pc(PC_from_IF),
+        .in_pc(PC),
         .out_instruction(instruction_to_ID),
         .out_pc(PC_to_ID)
     );
@@ -134,7 +127,7 @@ module core_top(
         .is_jump_or_branch(is_jump_or_branch),
         .branch_taken(branch_taken),
 
-        .forward_data_from_MEM(alu_result_to_MEM),
+        .forward_data_from_MEM(forward_data_from_MEM),
         .forward_A_sel_ID(forward_A_sel_ID),
         .forward_B_sel_ID(forward_B_sel_ID),
 
@@ -204,7 +197,7 @@ module core_top(
 
         .forward_A_sel_EX(forward_A_sel_EX), // 来自 Forwarding Unit 的控制信号
         .forward_B_sel_EX(forward_B_sel_EX), // 来自 Forwarding Unit 的控制信号
-        .forward_data_from_MEM(alu_result_to_MEM), // 来自 MEM 阶段的最新数据 (通常是 ALU 结果或 Load 的数据)
+        .forward_data_from_MEM(forward_data_from_MEM), // 来自 MEM 阶段的最新数据 (通常是 ALU 结果或 Load 的数据)
         .forward_data_from_WB(wb_data),  // 来自 WB 阶段的最新数据 (通常是 ALU 结果或 Load 的数据)
 
         .alu_result(alu_result_from_EX), // ALU 运算结果，传递给 EX/MEM 寄存器
@@ -246,8 +239,16 @@ module core_top(
         .mem_we(mem_write_to_MEM),    // MEM阶段是否要写数据存储器 (由控制单元生成)
         .funct3(func3_to_MEM), // MEM阶段指令的 funct3 字段 (由控制单元生成,通常是 ALU 操作码的最低三位)
         .alu_result(alu_result_to_MEM),      // MEM阶段访问数据存储器的地址 (来自 EX/MEM 寄存器的 ALU 结果)
-        .rs2_sd_in(rs2_data_to_MEM_fwd),    // MEM阶段准备写入的数据 (store_data, WB前递或EX/MEM寄存器的rs2数据)
+        .rs2_sd_in(rs2_data_to_MEM),    // MEM阶段准备写入的数据 (store_data, WB前递或EX/MEM寄存器的rs2数据)
         .rd_ld_out(rd_ld_from_MEM),  // 从 BRAM 读出的原始 32 位数据经过处理后给寄存器的数据 (传回 EX_MEM_pipe 再传给 WB阶段)
+
+        .PC(PC_to_MEM),
+        .imm(imm_to_MEM),
+        .reg_w_sel(reg_w_sel_to_MEM),
+        .forward_data_output(forward_data_from_MEM),
+
+        .forward_data_sel_MEM(forward_data_sel_MEM), // 来自 Forwarding Unit 的控制信号
+        .wb_data(wb_data), // 来自 WB 阶段的前递数据
 
         .data_store(data_store),
         .data_load(data_load),

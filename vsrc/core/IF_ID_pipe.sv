@@ -21,18 +21,35 @@ module IF_ID_pipe (
 
     always_ff @(posedge clk) begin
         if (reset_reg) begin
-            out_instruction <= 32'h0000_0000; // 气泡指令,在ID阶段被解析为nop
             out_pc <= 32'h0000_0000; // PC值也重置为0,虽然这个值在ID阶段不太重要,但保持一致性
         end
         else if (hold_ID) begin
-            out_instruction <= out_instruction; // 保持当前指令不变
             out_pc <= out_pc; // 保持当前PC值不变,让ID阶段保持不变
         end
         else begin
-            out_instruction <= in_instruction; // 正常传递IF阶段的指令到ID阶段
             out_pc <= in_pc; // 正常传递IF阶段的PC值到ID阶段
         end
     end
+
+    // 对于instruction 这个地方的确是多选 没有时延
+    // 但是这地方产生的rst_reg应该是让下一个周期的ID阶段变成气泡 而不是直接把当前的指令变成气泡
+    // 所以这里需要一个寄存器来保存rst信号,让它在下一个周期生效,而不是直接在组合逻辑里把指令变成气泡
+
+    logic reset_reg_next;
+    always_ff @(posedge clk) begin
+        reset_reg_next <= reset_reg;
+    end
+
+    // 这里只有直接连线,不能生成寄存器 因为ins_mem是同步读的
+    always_comb begin
+        if (reset_reg_next) begin
+            out_instruction = 32'h0000_0000; // 气泡指令,在ID阶段被解析为nop
+        end
+        else begin
+            out_instruction = in_instruction; // 正常传递IF阶段的指令到ID阶段
+        end
+    end
+
 
 
 endmodule

@@ -76,7 +76,7 @@ module ID_stage (
     );
 
     alu_op alu_op(
-        .opcode_6(instruction[30]),
+        .opcode_6(instruction[5]),
         .funct3(instruction[14:12]),
         .funct7(instruction[31:25]),
         .alu_sel(alu_sel),
