@@ -30,6 +30,7 @@
 `define ALU_SEL_ADD 0
 `define ALU_SEL_SUB 1
 `define ALU_SEL_OTHERS 2
+`define ALU_SEL_NO 3
 
 `define ALUA_SEL_WIDTH 2
 `define ALUA_SEL_RD1 0

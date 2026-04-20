@@ -113,7 +113,7 @@ module control(
             // Branch 指令 (BEQ, BNE 等)：需要 rs1 和 rs2 进行比较
             `OPCODE_B: begin
                 gen_imm_op = `Sext_B;
-                alu_sel    = `ALU_SEL_SUB;
+                alu_sel    = `ALU_SEL_NO;
                 alua_sel   = `ALUA_SEL_RD1;
                 alub_sel   = `ALUB_SEL_RD2;
                 reg_w_sel  = `RF_WSEL_ALUC;
@@ -128,7 +128,7 @@ module control(
             // JALR 指令：需要 rs1 的值加上立即数作为跳转目标 (不需要 rs2)
             `OPCODE_JALR: begin
                 gen_imm_op = `Sext_I;
-                alu_sel    = `ALU_SEL_ADD;
+                alu_sel    = `ALU_SEL_NO;
                 alua_sel   = `ALUA_SEL_RD1;
                 alub_sel   = `ALUB_SEL_SEXT;
                 reg_w_sel  = `RF_WSEL_PC4;
@@ -143,7 +143,7 @@ module control(
             // JAL 指令：直接用 PC 加立即数跳转，既不读 rs1 也不读 rs2
             `OPCODE_JAL: begin
                 gen_imm_op = `Sext_J;
-                alu_sel    = `ALU_SEL_ADD;
+                alu_sel    = `ALU_SEL_NO;
                 alua_sel   = `ALUA_SEL_ZERO;
                 alub_sel   = `ALUB_SEL_ZERO;
                 reg_w_sel  = `RF_WSEL_PC4;
@@ -158,7 +158,7 @@ module control(
             // LUI 指令：把立即数装到高位，不依赖任何源寄存器
             `OPCODE_LUI: begin
                 gen_imm_op = `Sext_U;
-                alu_sel    = `ALU_SEL_ADD;
+                alu_sel    = `ALU_SEL_NO;
                 alua_sel   = `ALUA_SEL_ZERO;
                 alub_sel   = `ALUB_SEL_ZERO;
                 reg_w_sel  = `RF_WSEL_SEXT;
@@ -188,7 +188,7 @@ module control(
             // 默认情况 (异常/空指令/气泡)：不读寄存器
             default:begin
                 gen_imm_op = `Sext_R;
-                alu_sel    = `ALU_SEL_ADD;
+                alu_sel    = `ALU_SEL_NO;
                 alua_sel   = `ALUA_SEL_RD1;
                 alub_sel   = `ALUB_SEL_RD2;
                 reg_w_sel  = `RF_WSEL_ALUC;

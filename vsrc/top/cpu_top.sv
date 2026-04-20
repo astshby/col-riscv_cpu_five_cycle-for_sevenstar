@@ -26,7 +26,7 @@
 module cpu_top(
     input logic clk,
     input logic rst,
-    output logic [31:0] PC_from_IF
+    output logic [31:0] PC
 
 );
 
@@ -37,14 +37,15 @@ module cpu_top(
     logic [31:0] data_addr;  // MEM阶段访问数据存储器的地址
     logic [3:0] data_we_byte; // MEM阶段访问数据存储器的字节写使能
     logic mem_ena; // MEM阶段访问数据存储器的使能信号
+    logic ena_ins_mem; // 连接指令存储器的使能信号
 
     core_top core_top(
         .clk(clk),
         .rst(rst),
-        .PC_from_IF(PC_from_IF),
 
-        .next_PC(next_PC_to_ins_mem),
+        .PC(PC),
         .instruction_from_memory(instruction_from_memory),
+        .ena_ins_mem(ena_ins_mem),
 
         .data_store(data_store),
         .data_load(data_load),
@@ -55,8 +56,9 @@ module cpu_top(
 
     ins_mem ins_mem(
         .clka(clk),
-        .addra(next_PC_to_ins_mem[13:2]), // 地址线，word地址
-        .douta(instruction_from_memory) // 指令输出
+        .addra(PC[13:2]), // 地址线，word地址
+        .douta(instruction_from_memory), // 指令输出
+        .ena(ena_ins_mem)
     );
 
 

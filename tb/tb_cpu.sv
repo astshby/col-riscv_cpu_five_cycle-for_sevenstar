@@ -27,13 +27,13 @@ module tb_cpu();
     // 时钟和复位信号
     logic clk;
     logic rst;
-    logic [31:0] PC_from_IF;// 拉出这个信号 测试时观察运行结果
+    logic [31:0] PC;// 拉出这个信号 测试时观察运行结果
 
     // 实例化CPU顶层模块
     cpu_top cpu_top_inst(
         .clk(clk),
         .rst(rst),
-        .PC_from_IF(PC_from_IF)
+        .PC(PC)
     );
 
     // 时钟生成
