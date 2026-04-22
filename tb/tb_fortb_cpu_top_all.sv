@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 `include "define.vh"
 
-module tb_cpu_top_all();
+module tb_fortb_cpu_top_all();
     // ==========================================
     // 1. 基础信号与时钟生成
     // ==========================================

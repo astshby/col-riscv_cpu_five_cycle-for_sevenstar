@@ -14,6 +14,6 @@
 !tb/**
 !ip/
 !ip/**
-!riscv_tests/
-!riscv_tests/**
+!riscv-tests/
+!riscv-tests/**
 !fix_tcl.sh
