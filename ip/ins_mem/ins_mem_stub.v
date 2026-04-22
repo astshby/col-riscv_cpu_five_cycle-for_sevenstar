@@ -2,10 +2,10 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-// Date        : Mon Apr 20 19:31:34 2026
-// Host        : lin-COSMOS running 64-bit Ubuntu 24.04.4 LTS
-// Command     : write_verilog -force -mode synth_stub -rename_top ins_mem -prefix
-//               ins_mem_ ins_mem_stub.v
+// Date        : Mon Apr 20 23:40:32 2026
+// Host        : hbyasts-Legion-Y7000P-IRX9 running 64-bit Ubuntu 22.04.5 LTS
+// Command     : write_verilog -force -mode synth_stub
+//               /home/hbyasts/3-cpu-collaboration/cpu-5-collaborate/ip/ins_mem/ins_mem_stub.v
 // Design      : ins_mem
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a35tfgg484-2

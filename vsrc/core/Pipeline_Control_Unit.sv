@@ -74,7 +74,7 @@ module Pipeline_Control_Unit(
             stall_req = 1'b1;
         end
         
-        // 冲突情况 3：Load 间隔一个再是 Branch / JALR 
+        // 冲突情况 3：Load 间隔一个再是 Branch / JALR，也就是唯一的延迟两个周期冒险的后处理 
         // ID 阶段是跳转指令，且 MEM 阶段的 Load 还没把它真实需要的数据写回
         else if (is_jump_or_branch_ID && mem_read_MEM && (rd_addr_MEM != 5'b0) &&
                 ((use_rs1_ID && (rd_addr_MEM == rs1_addr_ID)) || 
