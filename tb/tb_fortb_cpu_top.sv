@@ -40,7 +40,7 @@ module tb_cpu_top_all();
     // 4. 自动化测试引擎主循环
     // ==========================================
     initial begin
-        fd = $fopen("../../../../../../riscv_tests/test_list.txt", "r");
+        fd = $fopen("../../../../../../riscv-tests/test_list.txt", "r");
         if (fd == 0) begin
             $display("【致命错误】找不到 test_list.txt！请检查路径。");
             $finish;
@@ -48,8 +48,8 @@ module tb_cpu_top_all();
 
         while ($fscanf(fd, "%s", test_name) == 1) begin
             test_count++;
-            rom_path = {"../../../../../../riscv_tests/rom/", test_name, ".hex"};
-            ram_path = {"../../../../../../riscv_tests/ram/", test_name, ".hex"};
+            rom_path = {"../../../../../../riscv-tests/rom/", test_name, ".hex"};
+            ram_path = {"../../../../../../riscv-tests/ram/", test_name, ".hex"};
 
             $display("--------------------------------------------------");
             $display("[%0d] 正在启动测试: %s", test_count, test_name);
