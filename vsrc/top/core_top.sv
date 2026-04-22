@@ -70,9 +70,8 @@ module core_top(
     logic [2:0] func3_to_MEM;
     logic [`RF_WSEL_WIDTH-1:0] reg_w_sel_to_MEM;
 
-    logic [31:0] rd_ld_from_MEM;
-
-    logic [31:0] PC_to_WB, alu_result_to_WB, rd_ld_from_WB, imm_to_WB;
+    logic [31:0] PC_to_WB, alu_result_to_WB, imm_to_WB;
+    logic [2:0] func3_to_WB;
     logic reg_write_to_WB;
     logic [`RF_WSEL_WIDTH-1:0] reg_w_sel_to_WB;
     logic [4:0] rd_addr_to_WB;
@@ -235,27 +234,24 @@ module core_top(
     );
 
     MEM_stage MEM_stage(
-        .mem_re(mem_read_to_MEM),    // MEM阶段是否要读数据存储器 (由控制单元生成)
-        .mem_we(mem_write_to_MEM),    // MEM阶段是否要写数据存储器 (由控制单元生成)
-        .funct3(func3_to_MEM), // MEM阶段指令的 funct3 字段 (由控制单元生成,通常是 ALU 操作码的最低三位)
-        .alu_result(alu_result_to_MEM),      // MEM阶段访问数据存储器的地址 (来自 EX/MEM 寄存器的 ALU 结果)
-        .rs2_sd_in(rs2_data_to_MEM),    // MEM阶段准备写入的数据 (store_data, WB前递或EX/MEM寄存器的rs2数据)
-        .rd_ld_out(rd_ld_from_MEM),  // 从 BRAM 读出的原始 32 位数据经过处理后给寄存器的数据 (传回 EX_MEM_pipe 再传给 WB阶段)
+        .mem_re(mem_read_to_MEM),
+        .mem_we(mem_write_to_MEM),
+        .funct3(func3_to_MEM),
+        .alu_result(alu_result_to_MEM),
+        .rs2_sd_in(rs2_data_to_MEM),
 
         .PC(PC_to_MEM),
         .imm(imm_to_MEM),
         .reg_w_sel(reg_w_sel_to_MEM),
         .forward_data_output(forward_data_from_MEM),
 
-        .forward_data_sel_MEM(forward_data_sel_MEM), // 来自 Forwarding Unit 的控制信号
-        .wb_data(wb_data), // 来自 WB 阶段的前递数据
+        .forward_data_sel_MEM(forward_data_sel_MEM),
+        .wb_data(wb_data),
 
         .data_store(data_store),
-        .data_load(data_load),
         .data_addr(data_addr),
         .data_we_byte(data_we_byte),
         .mem_ena(mem_ena)
-
     );
 
     MEM_WB_pipe MEM_WB_pipe(
@@ -263,31 +259,30 @@ module core_top(
         .rst(rst),
 
         .in_PC(PC_to_MEM),
-        .in_alu_result(alu_result_to_MEM), //  ALU 结果 
-        .in_rd_ld(rd_ld_from_MEM), //  Load 数据
-        .in_imm(imm_to_MEM), //  立即数
-        .in_reg_write(reg_write_to_MEM), // 寄存器写使能
-        .in_reg_w_sel(reg_w_sel_to_MEM), // 寄存器写回选择信号
-        .in_rd_addr(rd_addr_to_MEM), // 来自 MEM 阶段的目的寄存器地址
+        .in_alu_result(alu_result_to_MEM),
+        .in_imm(imm_to_MEM),
+        .in_reg_write(reg_write_to_MEM),
+        .in_reg_w_sel(reg_w_sel_to_MEM),
+        .in_rd_addr(rd_addr_to_MEM),
+        .in_func3(func3_to_MEM),
 
-        .out_PC(PC_to_WB), // 传递给 WB 阶段 (如果 WB 阶段需要 PC，可以从这里获取)
-        .out_alu_result(alu_result_to_WB), // 传递给 WB 阶段的 ALU 结果
-        .out_rd_ld(rd_ld_from_WB), // 传递给 WB 阶段的 Load 数据
-        .out_imm(imm_to_WB), // 传递给 WB 阶段的立即数
-        .out_reg_write(reg_write_to_WB), // 传递给 WB 阶段的寄存器写使能
-        .out_reg_w_sel(reg_w_sel_to_WB), // 传递给 WB 阶段的寄存器写回选择信号
-        .out_rd_addr(rd_addr_to_WB) // 传递给 WB 阶段的目的寄存器地址
-
+        .out_PC(PC_to_WB),
+        .out_alu_result(alu_result_to_WB),
+        .out_imm(imm_to_WB),
+        .out_reg_write(reg_write_to_WB),
+        .out_reg_w_sel(reg_w_sel_to_WB),
+        .out_rd_addr(rd_addr_to_WB),
+        .out_func3(func3_to_WB)
     );
 
     WB_stage WB_stage(
-        .PC(PC_to_WB), // 来自 MEM/WB 寄存器的 PC (如果 WB 阶段需要 PC，可以从这里获取)
-        .alu_result(alu_result_to_WB), // 来自 MEM/WB 寄存器的 ALU 结果
-        .rd_ld(rd_ld_from_WB), // 来自 MEM/WB 寄存器的 Load 数据
-        .imm(imm_to_WB), // 来自 MEM/WB 寄存器的立即数
-        .reg_w_sel(reg_w_sel_to_WB), // 来自 MEM/WB 寄存器的寄存器写回选择信号
-        
-        .wb_data(wb_data) // 最终决定写回寄存器的 32 位数据，传递给寄存器堆和 Forwarding Unit
+        .PC(PC_to_WB),
+        .alu_result(alu_result_to_WB),
+        .imm(imm_to_WB),
+        .funct3(func3_to_WB),
+        .reg_w_sel(reg_w_sel_to_WB),
+        .data_load(data_load), // BRAM 原始输出直连 WB，不经 MEM_WB_pipe (BRAM 内部寄存器即流水寄存器)
+        .wb_data(wb_data)
     );
 
     Pipeline_Control_Unit pipeline_control_unit(

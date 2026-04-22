@@ -1,6 +1,6 @@
-add
-addi
-and 
+add         pass
+addi        pass
+and         pass
 andi
 auipc
 beq

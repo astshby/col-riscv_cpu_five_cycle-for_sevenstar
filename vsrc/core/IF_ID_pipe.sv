@@ -19,6 +19,7 @@ module IF_ID_pipe (
     logic reset_reg;
     assign reset_reg = rst | insert_bubble_to_ID;//冲刷掉或rst都是重置寄存器
 
+    // out_pc寄存器的更新逻辑
     always_ff @(posedge clk) begin
         if (reset_reg) begin
             out_pc <= 32'h0000_0000; // PC值也重置为0,虽然这个值在ID阶段不太重要,但保持一致性
@@ -31,10 +32,8 @@ module IF_ID_pipe (
         end
     end
 
-    // 对于instruction 这个地方的确是多选 没有时延
-    // 但是这地方产生的rst_reg应该是让下一个周期的ID阶段变成气泡 而不是直接把当前的指令变成气泡
-    // 所以这里需要一个寄存器来保存rst信号,让它在下一个周期生效,而不是直接在组合逻辑里把指令变成气泡
-
+    // out_instruction更新，inst直接组合逻辑读出，当其读出时reset_reg以及随着下一条流走，
+    // 所以需要reset_reg_next寄存器来保存reset_reg的值，使得传递的值与上个周期的reset_reg一致，是得对组合逻辑生效
     logic reset_reg_next;
     always_ff @(posedge clk) begin
         reset_reg_next <= reset_reg;

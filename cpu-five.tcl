@@ -101,7 +101,8 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/vsrc/core/control.sv"]"\
  "[file normalize "$origin_dir/vsrc/top/core_top.sv"]"\
  "[file normalize "$origin_dir/vsrc/core/gen_imm.sv"]"\
- "[file normalize "$origin_dir/vsrc/core/mem_mux.sv"]"\
+ "[file normalize "$origin_dir/vsrc/core/mem_mux_s.sv"]"\
+ "[file normalize "$origin_dir/vsrc/core/mem_mux_l.sv"]"\
  "[file normalize "$origin_dir/vsrc/core/regfile.sv"]"\
  "[file normalize "$origin_dir/vsrc/core/regfile_wd_MUX.sv"]"\
  "[file normalize "$origin_dir/vsrc/top/cpu_top.sv"]"\
@@ -277,7 +278,8 @@ set files [list \
  [file normalize "${origin_dir}/vsrc/core/control.sv"] \
  [file normalize "${origin_dir}/vsrc/top/core_top.sv"] \
  [file normalize "${origin_dir}/vsrc/core/gen_imm.sv"] \
- [file normalize "${origin_dir}/vsrc/core/mem_mux.sv"] \
+ [file normalize "${origin_dir}/vsrc/core/mem_mux_s.sv"] \
+ [file normalize "${origin_dir}/vsrc/core/mem_mux_l.sv"] \
  [file normalize "${origin_dir}/vsrc/core/regfile.sv"] \
  [file normalize "${origin_dir}/vsrc/core/regfile_wd_MUX.sv"] \
  [file normalize "${origin_dir}/vsrc/top/cpu_top.sv"] \
@@ -396,7 +398,12 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
 
-set file "$origin_dir/vsrc/core/mem_mux.sv"
+set file "$origin_dir/vsrc/core/mem_mux_s.sv"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
+
+set file "$origin_dir/vsrc/core/mem_mux_l.sv"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
