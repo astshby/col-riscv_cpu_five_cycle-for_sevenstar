@@ -8,6 +8,8 @@
 !test.*
 !bsp/
 !bsp/**
+!build/
+build/*
 !build/log/
 !build/log/**
 !dhrystone/

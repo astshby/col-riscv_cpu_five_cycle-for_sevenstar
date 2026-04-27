@@ -1,0 +1,10 @@
+--- 仿真开始 ---
+make[2]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+make[3]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+%Error: Specified --top-module 'TB' was not found in design.
+        ... See the manual at https://verilator.org/verilator_doc.html?v=5.045 for more assistance.
+%Error: Exiting due to 1 error(s)
+make[3]: *** [/home/hbyasts/1-ysyx/oss-cad-suite/lib/python3.11/site-packages/cocotb-2.1.0.dev0+41564633-py3.11-linux-x64.egg/cocotb_tools/makefiles/simulators/Makefile.verilator:61: build/sim_build/Vtop.mk] Error 1
+make[3]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+make[2]: *** [/home/hbyasts/1-ysyx/oss-cad-suite/lib/python3.11/site-packages/cocotb-2.1.0.dev0+41564633-py3.11-linux-x64.egg/cocotb_tools/makefiles/Makefile.inc:17: sim] Error 2
+make[2]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
