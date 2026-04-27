@@ -29,6 +29,10 @@ module ID_EX_pipe (
     input logic [`CSR_ADDR_WIDTH-1:0] in_csr_addr,
     input logic [`REG_WIDTH-1:0] in_csr_data_old,
 
+    // 性能计数器追踪
+    input logic in_valid,
+    input logic in_is_control_xfer,
+
     output logic [`REG_WIDTH-1:0] out_PC,
     output logic [`REG_ADDR_WIDTH-1:0] out_rs1_addr,
     output logic [`REG_ADDR_WIDTH-1:0] out_rs2_addr,
@@ -48,7 +52,11 @@ module ID_EX_pipe (
     // CSR 信号
     output logic out_csr_op,
     output logic [`CSR_ADDR_WIDTH-1:0] out_csr_addr,
-    output logic [`REG_WIDTH-1:0] out_csr_data_old
+    output logic [`REG_WIDTH-1:0] out_csr_data_old,
+
+    // 性能计数器追踪
+    output logic out_valid,
+    output logic out_is_control_xfer
 );
 
     logic reset_reg;
@@ -74,6 +82,8 @@ module ID_EX_pipe (
             out_csr_op <= 0;
             out_csr_addr <= {`CSR_ADDR_WIDTH{1'b0}};
             out_csr_data_old <= {`REG_WIDTH{1'b0}};
+            out_valid <= 1'b0;
+            out_is_control_xfer <= 1'b0;
         end
         else if (hold_EX) begin
             out_PC <= out_PC; // 保持当前PC值不变
@@ -94,6 +104,8 @@ module ID_EX_pipe (
             out_csr_op <= out_csr_op;
             out_csr_addr <= out_csr_addr;
             out_csr_data_old <= out_csr_data_old;
+            out_valid <= out_valid;
+            out_is_control_xfer <= out_is_control_xfer;
         end
         else begin
             out_PC <= in_PC; // 正常传递ID阶段的PC值到EX阶段
@@ -114,6 +126,8 @@ module ID_EX_pipe (
             out_csr_op <= in_csr_op;
             out_csr_addr <= in_csr_addr;
             out_csr_data_old <= in_csr_data_old;
+            out_valid <= in_valid;
+            out_is_control_xfer <= in_is_control_xfer;
         end
     end
 

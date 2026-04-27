@@ -13,7 +13,8 @@ module IF_ID_pipe (
     input logic [`REG_WIDTH-1:0] in_instruction, // 来自IF阶段的指令
     input logic [`REG_WIDTH-1:0] in_pc, // 来自IF阶段的PC值
     output logic [`REG_WIDTH-1:0] out_instruction, // 传递给ID阶段的指令
-    output logic [`REG_WIDTH-1:0] out_pc // 传递给ID阶段
+    output logic [`REG_WIDTH-1:0] out_pc, // 传递给ID阶段
+    output logic out_valid // 1=真实指令, 0=气泡
 );
 
     logic reset_reg;
@@ -49,6 +50,18 @@ module IF_ID_pipe (
         end
     end
 
-
+    // valid 跟踪: 与 out_pc 同为寄存器输出，再与 reset_reg_next 联合
+    logic valid_reg;
+    always_ff @(posedge clk) begin
+        if (rst)
+            valid_reg <= 1'b0;
+        else if (insert_bubble_to_ID)
+            valid_reg <= 1'b0;
+        else if (hold_ID)
+            valid_reg <= valid_reg;
+        else
+            valid_reg <= 1'b1;
+    end
+    assign out_valid = valid_reg & ~reset_reg_next;
 
 endmodule

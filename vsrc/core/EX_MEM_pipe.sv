@@ -24,6 +24,10 @@ module EX_MEM_pipe (
     input logic [`REG_WIDTH-1:0] in_csr_data_old,
     input logic [`REG_WIDTH-1:0] in_csr_result_new,
 
+    // 性能计数器追踪
+    input logic in_valid,
+    input logic in_is_control_xfer,
+
     output logic [`REG_WIDTH-1:0] out_PC,
     output logic [`REG_ADDR_WIDTH-1:0] out_rd_addr,
     output logic [`REG_ADDR_WIDTH-1:0] out_rs2_addr,
@@ -40,7 +44,11 @@ module EX_MEM_pipe (
     output logic out_csr_we,
     output logic [`CSR_ADDR_WIDTH-1:0] out_csr_addr,
     output logic [`REG_WIDTH-1:0] out_csr_data_old,
-    output logic [`REG_WIDTH-1:0] out_csr_result_new
+    output logic [`REG_WIDTH-1:0] out_csr_result_new,
+
+    // 性能计数器追踪
+    output logic out_valid,
+    output logic out_is_control_xfer
 );
 
     always_ff @(posedge clk) begin
@@ -60,6 +68,8 @@ module EX_MEM_pipe (
             out_csr_addr <= {`CSR_ADDR_WIDTH{1'b0}};
             out_csr_data_old <= {`REG_WIDTH{1'b0}};
             out_csr_result_new <= {`REG_WIDTH{1'b0}};
+            out_valid <= 1'b0;
+            out_is_control_xfer <= 1'b0;
         end else begin
             out_PC <= in_PC;
             out_rd_addr <= in_rd_addr;
@@ -76,6 +86,8 @@ module EX_MEM_pipe (
             out_csr_addr <= in_csr_addr;
             out_csr_data_old <= in_csr_data_old;
             out_csr_result_new <= in_csr_result_new;
+            out_valid <= in_valid;
+            out_is_control_xfer <= in_is_control_xfer;
         end
     end
 endmodule

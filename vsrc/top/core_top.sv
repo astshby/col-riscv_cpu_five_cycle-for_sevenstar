@@ -87,6 +87,11 @@ module core_top(
     logic use_rs1, use_rs2, is_jump_or_branch, branch_taken;
     logic PC_jump, PC_hold, hold_ID, insert_bubble_to_ID, insert_bubble_to_EX;
 
+    // 性能计数器追踪信号
+    logic valid_from_IF_ID;
+    logic valid_to_EX, valid_to_MEM, valid_to_WB;
+    logic is_control_xfer_to_EX, is_control_xfer_to_MEM, is_control_xfer_to_WB;
+
     // === CSR 信号 ===
     // ID → ID_EX_pipe
     logic csr_op_from_ID;
@@ -129,7 +134,8 @@ module core_top(
         .in_instruction(instruction_from_memory),
         .in_pc(PC),
         .out_instruction(instruction_to_ID),
-        .out_pc(PC_to_ID)
+        .out_pc(PC_to_ID),
+        .out_valid(valid_from_IF_ID)
     );
 
     ID_stage ID_stage(
@@ -181,8 +187,8 @@ module core_top(
         .csr_result_new_MEM(csr_result_new_to_MEM),
         // 性能计数器
         .perf_wrong_branch(PC_jump),
-        .perf_valid_inst(1'b1),
-        .perf_control_xfer(PC_jump),
+        .perf_valid_inst(valid_to_WB),
+        .perf_control_xfer(valid_to_WB & is_control_xfer_to_WB),
         // CSR 输出 → ID_EX_pipe
         .csr_op(csr_op_from_ID),
         .csr_addr(csr_addr_from_ID),
@@ -213,6 +219,8 @@ module core_top(
         .in_csr_op(csr_op_from_ID),
         .in_csr_addr(csr_addr_from_ID),
         .in_csr_data_old(csr_data_old_from_ID),
+        .in_valid(valid_from_IF_ID),
+        .in_is_control_xfer(is_jump_or_branch),
 
         .out_PC(PC_to_EX),
         .out_rs1_addr(rs1_addr_to_EX),
@@ -231,7 +239,9 @@ module core_top(
         .out_func3(func3_to_EX),
         .out_csr_op(csr_op_to_EX),
         .out_csr_addr(csr_addr_to_EX),
-        .out_csr_data_old(csr_data_old_to_EX)
+        .out_csr_data_old(csr_data_old_to_EX),
+        .out_valid(valid_to_EX),
+        .out_is_control_xfer(is_control_xfer_to_EX)
     );
 
     EX_stage EX_stage(
@@ -283,6 +293,8 @@ module core_top(
         .in_csr_addr(csr_addr_to_EX),
         .in_csr_data_old(csr_data_old_to_EX),
         .in_csr_result_new(csr_result_new_from_EX),
+        .in_valid(valid_to_EX),
+        .in_is_control_xfer(is_control_xfer_to_EX),
 
         .out_PC(PC_to_MEM),
         .out_rd_addr(rd_addr_to_MEM),
@@ -298,7 +310,9 @@ module core_top(
         .out_csr_we(csr_we_to_MEM),
         .out_csr_addr(csr_addr_to_MEM),
         .out_csr_data_old(csr_data_old_to_MEM),
-        .out_csr_result_new(csr_result_new_to_MEM)
+        .out_csr_result_new(csr_result_new_to_MEM),
+        .out_valid(valid_to_MEM),
+        .out_is_control_xfer(is_control_xfer_to_MEM)
     );
 
     MEM_stage MEM_stage(
@@ -338,6 +352,8 @@ module core_top(
         .in_csr_addr(csr_addr_to_MEM),
         .in_csr_data_old(csr_data_old_to_MEM),
         .in_csr_result_new(csr_result_new_to_MEM),
+        .in_valid(valid_to_MEM),
+        .in_is_control_xfer(is_control_xfer_to_MEM),
 
         .out_PC(PC_to_WB),
         .out_alu_result(alu_result_to_WB),
@@ -349,7 +365,9 @@ module core_top(
         .out_csr_we(csr_we_to_WB),
         .out_csr_addr(csr_addr_to_WB),
         .out_csr_data_old(csr_data_old_to_WB),
-        .out_csr_result_new(csr_result_new_to_WB)
+        .out_csr_result_new(csr_result_new_to_WB),
+        .out_valid(valid_to_WB),
+        .out_is_control_xfer(is_control_xfer_to_WB)
     );
 
     WB_stage WB_stage(
