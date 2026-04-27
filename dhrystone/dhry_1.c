@@ -374,46 +374,60 @@ main()
     uint32_t controlXfers = controlXfer1 - controlXfer0;
     uint32_t instructions = N_instructions1 - N_instructions0;
 
-    // When M-ext
-    //  // CPI * 1000 (fixed point, 3 decimal places)
-    //  uint32_t cpi_times_1000 = __divsi3(__mulsi3(User_Cycles, 1000), instructions);
+    // CPI * 1000 (fixed point, 3 decimal places)
+    uint32_t cpi_times_1000 = __divsi3(__mulsi3(User_Cycles, 1000), instructions);
 
-    // // Misprediction rate * 1000 (fixed point, 3 decimal places)
-    // uint32_t miss_times_1000 = 0;
-    // if (controlXfers != 0)
-    //   miss_times_1000 = __divsi3(__mulsi3(wrongBranches, 1000), controlXfers);
+    // Misprediction rate * 1000 (fixed point, 3 decimal places)
+    uint32_t miss_times_1000 = 0;
+    if (controlXfers != 0)
+      miss_times_1000 = __divsi3(__mulsi3(wrongBranches, 1000), controlXfers);
 
-    // Print table
-    uart_puts("Total Cycles:              ");
-    uart_puthex(User_Cycles);
+    // DMIPS/MHz * 1000 = (Number_Of_Runs * 1,000,000 / 1757) * 1000 / User_Cycles
+    uint32_t dmips_mhz_times_1000 = __divsi3( __mulsi3(__divsi3(__mulsi3(Number_Of_Runs, 1000000), 1757), 1000), User_Cycles);
+
+    // Print table in decimal
+    uart_puts("Total Cycles (dec):        ");
+    uart_putint(User_Cycles);
     uart_putc('\n');
     uart_puts("Number of Control Xfers:   ");
-    uart_puthex(controlXfers);
+    uart_putint(controlXfers);
     uart_putc('\n');
     uart_puts("Number of Instructions:    ");
-    uart_puthex(instructions);
+    uart_putint(instructions);
     uart_putc('\n');
     uart_puts("Wrong Branches:            ");
-    uart_puthex(wrongBranches);
+    uart_putint(wrongBranches);
     uart_putc('\n');
 
-    // uart_puts("CPI:                       ");
-    // uart_putint(__divsi3(cpi_times_1000, 1000)); // integer part
-    // uart_putc('.');
-    // uint32_t cpi_frac = __umodsi3(cpi_times_1000, 1000);
-    // if (cpi_frac < 100)
-    //   uart_putc('0');
-    // if (cpi_frac < 10)
-    //   uart_putc('0');
-    // uart_puthex(cpi_frac);
-    // uart_putc('\n');
+    uart_puts("CPI:                       ");
+    uart_putint(__divsi3(cpi_times_1000, 1000)); // integer part
+    uart_putc('.');
+    uint32_t cpi_frac = __umodsi3(cpi_times_1000, 1000);
+    if (cpi_frac < 100)
+      uart_putc('0');
+    if (cpi_frac < 10)
+      uart_putc('0');
+    uart_putint(cpi_frac);
+    uart_putc('\n');
 
-    // uart_puts("Misprediction Rate (%):    ");
-    // uart_puthex(__divsi3(miss_times_1000, 10)); // integer part in %
-    // uart_putc('.');
-    // uint32_t miss_frac = __umodsi3(miss_times_1000, 10);
-    // uart_puthex(miss_frac);
-    // uart_putc('\n');
+    uart_puts("Misprediction Rate (%):    ");
+    uart_putint(__divsi3(miss_times_1000, 10)); // integer part in %
+    uart_putc('.');
+    uint32_t miss_frac = __umodsi3(miss_times_1000, 10);
+    uart_putint(miss_frac);
+    uart_putc('\n');
+
+    uart_puts("DMIPS/MHz:                 ");
+    uart_putint(__divsi3(dmips_mhz_times_1000, 1000));
+    uart_putc('.');
+    uint32_t dmips_frac = __umodsi3(dmips_mhz_times_1000, 1000);
+    if (dmips_frac < 100)
+      uart_putc('0');
+    if (dmips_frac < 10)
+      uart_putc('0');
+    uart_putint(dmips_frac);
+    uart_putc('\n');
+
     uart_puts("Done.\n");
   }
 }
