@@ -1,24 +1,27 @@
 `timescale 1ns / 1ps
+
+`include "define.vh"
+
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Company:
+// Engineer:
+//
 // Create Date: 04/19/2026 01:55:09 AM
-// Design Name: 
+// Design Name:
 // Module Name: Pipeline_Control_Unit
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
+// Project Name:
+// Target Devices:
+// Tool Versions:
 // Description: 全局流水线控制与仲裁单元 (带精准依赖检测)
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 module Pipeline_Control_Unit(
     // -----------------------------------------
     // 监听：ID 阶段的指令信息
     // -----------------------------------------
-    input logic [4:0] rs1_addr_ID,
-    input logic [4:0] rs2_addr_ID,
+    input logic [`REG_ADDR_WIDTH-1:0] rs1_addr_ID,
+    input logic [`REG_ADDR_WIDTH-1:0] rs2_addr_ID,
     
     input logic       use_rs1_ID,        // 当前 ID 阶段指令是否真正使用 rs1
     input logic       use_rs2_ID,        // 当前 ID 阶段指令是否真正使用 rs2
@@ -29,14 +32,14 @@ module Pipeline_Control_Unit(
     // -----------------------------------------
     // 监听：EX 阶段的指令信息
     // -----------------------------------------
-    input logic [4:0] rd_addr_EX,       
-    input logic       mem_read_EX,      
-    input logic       reg_write_EX,     
+    input logic [`REG_ADDR_WIDTH-1:0] rd_addr_EX,
+    input logic       mem_read_EX,
+    input logic       reg_write_EX,
 
     // -----------------------------------------
     // 监听：MEM 阶段的指令信息
     // -----------------------------------------
-    input logic [4:0] rd_addr_MEM,      
+    input logic [`REG_ADDR_WIDTH-1:0] rd_addr_MEM,
     input logic       mem_read_MEM,     
 
     // -----------------------------------------

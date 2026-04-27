@@ -8,13 +8,13 @@ module ID_EX_pipe (
     input logic insert_bubble_to_EX, // 来自分支单元的信号,下一周期在EX阶段为气泡
     input logic hold_EX,
 
-    input logic [31:0] in_PC,
-    input logic [4:0] in_rs1_addr,
-    input logic [4:0] in_rs2_addr,
-    input logic [4:0] in_rd_addr,
-    input logic [31:0] in_rs1data,
-    input logic [31:0] in_rs2data,
-    input logic [31:0] in_imm,
+    input logic [`REG_WIDTH-1:0] in_PC,
+    input logic [`REG_ADDR_WIDTH-1:0] in_rs1_addr,
+    input logic [`REG_ADDR_WIDTH-1:0] in_rs2_addr,
+    input logic [`REG_ADDR_WIDTH-1:0] in_rd_addr,
+    input logic [`REG_WIDTH-1:0] in_rs1data,
+    input logic [`REG_WIDTH-1:0] in_rs2data,
+    input logic [`REG_WIDTH-1:0] in_imm,
     input logic [`ALU_OP_WIDTH-1:0] in_alu_opcode,
     input logic [`ALUA_SEL_WIDTH-1:0] in_alua_sel,
     input logic [`ALUB_SEL_WIDTH-1:0] in_alub_sel,
@@ -24,13 +24,18 @@ module ID_EX_pipe (
     input logic in_mem_write,
     input logic [2:0] in_func3,
 
-    output logic [31:0] out_PC,
-    output logic [4:0] out_rs1_addr,
-    output logic [4:0] out_rs2_addr,
-    output logic [4:0] out_rd_addr,
-    output logic [31:0] out_rs1data,
-    output logic [31:0] out_rs2data,
-    output logic [31:0] out_imm,
+    // CSR 信号
+    input logic in_csr_op,
+    input logic [`CSR_ADDR_WIDTH-1:0] in_csr_addr,
+    input logic [`REG_WIDTH-1:0] in_csr_data_old,
+
+    output logic [`REG_WIDTH-1:0] out_PC,
+    output logic [`REG_ADDR_WIDTH-1:0] out_rs1_addr,
+    output logic [`REG_ADDR_WIDTH-1:0] out_rs2_addr,
+    output logic [`REG_ADDR_WIDTH-1:0] out_rd_addr,
+    output logic [`REG_WIDTH-1:0] out_rs1data,
+    output logic [`REG_WIDTH-1:0] out_rs2data,
+    output logic [`REG_WIDTH-1:0] out_imm,
     output logic [`ALU_OP_WIDTH-1:0] out_alu_opcode,
     output logic [`ALUA_SEL_WIDTH-1:0] out_alua_sel,
     output logic [`ALUB_SEL_WIDTH-1:0] out_alub_sel,
@@ -38,7 +43,12 @@ module ID_EX_pipe (
     output logic out_reg_write,
     output logic out_mem_read,
     output logic out_mem_write,
-    output logic [2:0] out_func3 
+    output logic [2:0] out_func3,
+
+    // CSR 信号
+    output logic out_csr_op,
+    output logic [`CSR_ADDR_WIDTH-1:0] out_csr_addr,
+    output logic [`REG_WIDTH-1:0] out_csr_data_old
 );
 
     logic reset_reg;
@@ -60,8 +70,10 @@ module ID_EX_pipe (
             out_reg_write <= 0; // nop指令不写寄存器
             out_mem_read <= 0; // nop指令不读内存
             out_mem_write <= 0; // nop指令不写内存
-            out_func3 <= 3'h0; // nop指令的func3字段
-
+            out_func3 <= 3'h0;
+            out_csr_op <= 0;
+            out_csr_addr <= {`CSR_ADDR_WIDTH{1'b0}};
+            out_csr_data_old <= {`REG_WIDTH{1'b0}};
         end
         else if (hold_EX) begin
             out_PC <= out_PC; // 保持当前PC值不变
@@ -78,7 +90,10 @@ module ID_EX_pipe (
             out_reg_write <= out_reg_write; // 保持当前寄存器写使能信号不变
             out_mem_read <= out_mem_read; // 保持当前内存读使能信号不变
             out_mem_write <= out_mem_write; // 保持当前内存写使能信号不变
-            out_func3 <= out_func3; // 保持当前func3字段不变
+            out_func3 <= out_func3;
+            out_csr_op <= out_csr_op;
+            out_csr_addr <= out_csr_addr;
+            out_csr_data_old <= out_csr_data_old;
         end
         else begin
             out_PC <= in_PC; // 正常传递ID阶段的PC值到EX阶段
@@ -95,7 +110,10 @@ module ID_EX_pipe (
             out_reg_write <= in_reg_write; // 正常传递ID阶段的寄存器写使能信号到EX阶段
             out_mem_read <= in_mem_read; // 正常传递ID阶段的内存读使能信号到EX阶段
             out_mem_write <= in_mem_write; // 正常传递ID阶段的内存写使能信号到EX阶段
-            out_func3 <= in_func3; // 正常传递ID阶段的func3字段到EX阶段
+            out_func3 <= in_func3;
+            out_csr_op <= in_csr_op;
+            out_csr_addr <= in_csr_addr;
+            out_csr_data_old <= in_csr_data_old;
         end
     end
 

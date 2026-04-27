@@ -4,6 +4,12 @@
 !README*
 !git-inst*
 !*.tcl
+!Makefile
+!test.*
+!link.ld
+!boot.s
+!dhrystone/
+!dhrystone/**
 !vsrc/
 !vsrc/**
 !constr/

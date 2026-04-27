@@ -24,14 +24,14 @@
 
 
 module alu_mux(
-    input logic [`RegBus] rd1,
-    input logic [`RegBus] rd2,
-    input logic [31:0] pc,
-    input logic [31:0] gen_imm,
+    input logic [`REG_WIDTH-1:0] rd1,
+    input logic [`REG_WIDTH-1:0] rd2,
+    input logic [`REG_WIDTH-1:0] pc,
+    input logic [`REG_WIDTH-1:0] gen_imm,
     input logic [`ALUA_SEL_WIDTH-1:0] alua_sel,
     input logic [`ALUB_SEL_WIDTH-1:0] alub_sel,
-    output logic [31:0] A,
-    output logic [31:0] B
+    output logic [`REG_WIDTH-1:0] A,
+    output logic [`REG_WIDTH-1:0] B
     );
     
         always_comb begin : alua_sel_block
