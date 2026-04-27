@@ -75,6 +75,7 @@ module tb_fortb_cpu_top_all();
                     forever begin
                         @(posedge clk);
                         // 【修复核心】使用掩码截取低 16 位进行监控，完美解决 PC 地址偏移导致的误判
+                        //  只要有对内存host位置写入操作就实时监控
                         if ((|u_top.data_we_byte) && (u_top.data_addr[15:0] == TOHOST_OFFSET)) begin
                             if (u_top.data_store == 32'h1) begin
                                 $display("    -> [SUCCESS] %s 完美通过！", test_name);
