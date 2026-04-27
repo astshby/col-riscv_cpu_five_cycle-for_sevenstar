@@ -6,8 +6,10 @@
 !*.tcl
 !Makefile
 !test.*
-!link.ld
-!boot.s
+!bsp/
+!bsp/**
+!build/log/
+!build/log/**
 !dhrystone/
 !dhrystone/**
 !vsrc/
