@@ -1,0 +1,6 @@
+Total Cycles (dec):        21763
+Number of Control Xfers:   3775
+Number of Instructions:    21763
+Wrong Branches:            3775
+CPI:                       1.000
+Misprediction Rate (%):    100.0

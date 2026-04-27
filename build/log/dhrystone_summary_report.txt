@@ -1,0 +1,7 @@
+Total Cycles (dec):        217974
+Number of Control Xfers:   20994
+Number of Instructions:    217975
+Wrong Branches:            20994
+CPI:                       0.999
+Misprediction Rate (%):    100.0
+DMIPS/MHz:                 1.305

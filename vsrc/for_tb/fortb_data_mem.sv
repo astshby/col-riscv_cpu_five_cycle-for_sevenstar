@@ -5,13 +5,19 @@ module fortb_data_mem (
     input  logic        clka,
     input  logic        ena,         
     input  logic [3:0]  wea,         
-    input  logic [11:0] addra,       
+    input  logic [13:0] addra,       
     input  logic [31:0] dina,        
     output logic [31:0] douta = 32'h00000000 
 );
 
-    // 16KB 数据存储
-    logic [31:0] ram_array [0:4095];
+    // 64KB 数据存储
+    logic [31:0] ram_array [0:16383];
+
+`ifndef SYNTHESIS
+    initial begin
+        $readmemh("build/data.mem", ram_array);
+    end
+`endif
 
     always_ff @(posedge clka) begin
         if (ena) begin

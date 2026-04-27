@@ -1,10 +1,68 @@
 --- 仿真开始 ---
 make[2]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
 make[3]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
-%Error: Specified --top-module 'TB' was not found in design.
-        ... See the manual at https://verilator.org/verilator_doc.html?v=5.045 for more assistance.
-%Error: Exiting due to 1 error(s)
-make[3]: *** [/home/hbyasts/1-ysyx/oss-cad-suite/lib/python3.11/site-packages/cocotb-2.1.0.dev0+41564633-py3.11-linux-x64.egg/cocotb_tools/makefiles/simulators/Makefile.verilator:61: build/sim_build/Vtop.mk] Error 1
+/home/hbyasts/1-ysyx/oss-cad-suite/lib/python3.11/site-packages/cocotb-2.1.0.dev0+41564633-py3.11-linux-x64.egg/cocotb_tools/makefiles/simulators/Makefile.verilator:69: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:216  in gpi_load_users                  Running entry func 'initialize' from loaded library '/home/hbyasts/1-ysyx/oss-cad-suite/lib/python3.11/site-packages/cocotb-2.1.0.dev0+41564633-py3.11-linux-x64.egg/cocotb/libs/libcocotb.so'
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:96   in initialize                      Using Python 3.11.6 interpreter at /home/hbyasts/1-ysyx/oss-cad-suite/bin/tabbypy3
+     0.00ns INFO     cocotb                             Running on Verilator version 5.045 devel
+     0.00ns INFO     cocotb                             Seeding Python random module with 1777296393
+     0.00ns INFO     cocotb                             Initialized cocotb v2.1.0.dev0+41564633 from /home/hbyasts/1-ysyx/oss-cad-suite/lib/python3.11/site-packages/cocotb-2.1.0.dev0+41564633-py3.11-linux-x64.egg/cocotb
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running test.isa_test (1/1)
+                                                            Try accessing the design.
+1822864.00ns INFO     cocotb.regression                  test.isa_test passed
+1822864.00ns INFO     cocotb.regression                  **************************************************************************************
+                                                        ** TEST                          STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        **************************************************************************************
+                                                        ** test.isa_test                  PASS     1822864.00          64.51      28256.52  **
+                                                        **************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0            1822864.00          64.51      28255.14  **
+                                                        **************************************************************************************
+
+Dhrystone Benchmark, Version 2.1 (Language: C)
+
+Program compiled without 'register' attribute
+
+Execution starts, 0x000001F4 runs through Dhrystone
+Execution ends
+
+Final values of the variables used in the benchmark:
+Int_Glob:            00000005        should be:   00000005
+Bool_Glob:           00000001        should be:   00000001
+Ch_1_Glob:           A        should be:   A
+Ch_2_Glob:           B        should be:   B
+Arr_1_Glob[8]:       00000007        should be:   00000007
+Arr_2_Glob[8][7]:    000001FE        should be:   Number_Of_Runs + 10
+
+Ptr_Glob->
+  Ptr_Comp:          00000000        should be:   (implementation-dependent)
+  Discr:             00000000        should be:   00000000
+  Enum_Comp:         00000000        should be:   00000002
+  Int_Comp:          00000011        should be:   00000011
+  Str_Comp:                  should be:   DHRYSTONE PROGRAM, SOME STRING
+Next_Ptr_Glob->
+  Ptr_Comp:          00000000        should be:   (implementation-dependent), same as above
+  Discr:             00000000        should be:   00000000
+  Enum_Comp:         00000000        should be:   00000001
+  Int_Comp:          00000000        should be:   00000012
+  Str_Comp:                  should be:   DHRYSTONE PROGRAM, SOME STRING
+
+Int_1_Loc:           00000005        should be:   00000005
+Int_2_Loc:           0000000D        should be:   0000000D
+Int_3_Loc:           00000007        should be:   00000007
+Enum_Loc:            00000001        should be:   00000001
+Str_1_Loc:           DHRYSTONE PROGRAM, 1'ST STRING        should be:   DHRYSTONE PROGRAM, 1'ST STRING
+
+Str_2_Loc:           DHRYSTONE PROGRAM, 2'ND STRING        should be:   DHRYSTONE PROGRAM, 2'ND STRING
+
+Total Cycles (dec):        217974
+Number of Control Xfers:   20994
+Number of Instructions:    217975
+Wrong Branches:            20994
+CPI:                       0.999
+Misprediction Rate (%):    100.0
+DMIPS/MHz:                 1.305
+Done.
+- :0: Verilog $finish
 make[3]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
-make[2]: *** [/home/hbyasts/1-ysyx/oss-cad-suite/lib/python3.11/site-packages/cocotb-2.1.0.dev0+41564633-py3.11-linux-x64.egg/cocotb_tools/makefiles/Makefile.inc:17: sim] Error 2
 make[2]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
