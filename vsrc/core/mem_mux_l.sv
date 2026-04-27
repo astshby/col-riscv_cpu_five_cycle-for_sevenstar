@@ -18,9 +18,9 @@
 module mem_mux_l(
     input  logic [2:0]  funct3,
     input  logic [1:0]  addr,         // alu_result[1:0]
-    input  logic [31:0] dram_ld_in,   // BRAM 原始 32 位读出数据
+    input  logic [`REG_WIDTH-1:0] dram_ld_in,   // BRAM 原始 32 位读出数据
 
-    output logic [31:0] rd_ld_out     // 截取/符号扩展后的 load 数据
+    output logic [`REG_WIDTH-1:0] rd_ld_out     // 截取/符号扩展后的 load 数据
 );
 
     logic        ext_val;

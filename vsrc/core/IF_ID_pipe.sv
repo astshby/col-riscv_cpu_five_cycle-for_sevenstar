@@ -10,10 +10,10 @@ module IF_ID_pipe (
     input logic hold_ID, // 保持ID阶段不变,保持住load-use冒险的后面的use,让use停住一周期
 
     //数据通路
-    input logic [31:0] in_instruction, // 来自IF阶段的指令
-    input logic [31:0] in_pc, // 来自IF阶段的PC值
-    output logic [31:0] out_instruction, // 传递给ID阶段的指令
-    output logic [31:0] out_pc // 传递给ID阶段
+    input logic [`REG_WIDTH-1:0] in_instruction, // 来自IF阶段的指令
+    input logic [`REG_WIDTH-1:0] in_pc, // 来自IF阶段的PC值
+    output logic [`REG_WIDTH-1:0] out_instruction, // 传递给ID阶段的指令
+    output logic [`REG_WIDTH-1:0] out_pc // 传递给ID阶段
 );
 
     logic reset_reg;

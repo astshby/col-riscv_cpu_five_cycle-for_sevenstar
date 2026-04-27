@@ -20,11 +20,11 @@ module mem_mux_s(
     input  logic        mem_we,
     input  logic [2:0]  funct3,
     input  logic [1:0]  addr,         // alu_result[1:0]
-    input  logic [31:0] rs2_sd_in,    // 前递修正后的 store 数据
+    input  logic [`REG_WIDTH-1:0] rs2_sd_in,    // 前递修正后的 store 数据
 
     output logic        ena_out,      // BRAM 芯片使能
     output logic [3:0]  we_out,       // 字节写使能
-    output logic [31:0] dram_sd_out   // 对齐后的写入数据
+    output logic [`REG_WIDTH-1:0] dram_sd_out   // 对齐后的写入数据
 );
 
     assign ena_out = mem_re | mem_we;

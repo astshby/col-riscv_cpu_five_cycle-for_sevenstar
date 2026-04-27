@@ -7,11 +7,11 @@ module IF_stage (
     input  logic        rst,
     input  logic        hold,       // 来自分支单元的stall信号,发生停顿
     input  logic        jump,       // 来自ID阶段分支单元的jump信号，表示需要跳转
-    input  logic [31:0] jump_addr,  // 来自ID阶段分支单元的jump地址
-    output logic [31:0] present_PC // 当前PC值，传递给IF/ID寄存器
+    input  logic [`REG_WIDTH-1:0] jump_addr,  // 来自ID阶段分支单元的jump地址
+    output logic [`REG_WIDTH-1:0] present_PC // 当前PC值，传递给IF/ID寄存器
 );
 
-    logic [31:0] PC_4, next_PC;
+    logic [`REG_WIDTH-1:0] PC_4, next_PC;
     assign PC_4 = present_PC + 32'h4;
 
     // =========================================================================

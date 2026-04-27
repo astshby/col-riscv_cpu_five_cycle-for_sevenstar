@@ -25,7 +25,7 @@
 module gen_imm(
     input logic [24:0] inst,
     input logic [`Sext_OP_WIDTH-1:0] gen_imm_op,
-    output logic [31:0] imm_out
+    output logic [`REG_WIDTH-1:0] imm_out
     );
 
     always_comb begin : gen_imm_block

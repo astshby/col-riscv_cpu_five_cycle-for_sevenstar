@@ -24,9 +24,9 @@
 
 module alu(
     input wire [`ALU_OP_WIDTH-1:0] alu_opcode,
-    input [31:0] A,
-    input [31:0] B,
-    output reg [31:0] result
+    input [`REG_WIDTH-1:0] A,
+    input [`REG_WIDTH-1:0] B,
+    output reg [`REG_WIDTH-1:0] result
     );
 
     always_comb begin : alu_calculate

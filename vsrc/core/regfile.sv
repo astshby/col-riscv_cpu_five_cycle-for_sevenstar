@@ -24,17 +24,17 @@
 module regfile(
     input logic clk,
     input logic rst,
-    input logic [4:0] rs1addr,
-    input logic [4:0] rs2addr,
-    input logic [4:0] rdaddr,
-    input logic [31:0] wdata,
+    input logic [`REG_ADDR_WIDTH-1:0] rs1addr,
+    input logic [`REG_ADDR_WIDTH-1:0] rs2addr,
+    input logic [`REG_ADDR_WIDTH-1:0] rdaddr,
+    input logic [`REG_WIDTH-1:0] wdata,
     input logic wen,
-    output logic [31:0] rs1data,
-    output logic [31:0] rs2data
+    output logic [`REG_WIDTH-1:0] rs1data,
+    output logic [`REG_WIDTH-1:0] rs2data
     );
 
     // 声明31个32位寄存器，地址从1到31（0号寄存器硬件恒为0）
-    reg [31:0] regs [1:31];
+    reg [`REG_WIDTH-1:0] regs [1:31];
 
     // 读端口 - 组合逻辑
     always_comb begin : rs_read
