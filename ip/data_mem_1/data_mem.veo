@@ -58,7 +58,7 @@ data_mem your_instance_name (
   .clka(clka),    // input wire clka
   .ena(ena),      // input wire ena
   .wea(wea),      // input wire [3 : 0] wea
-  .addra(addra),  // input wire [11 : 0] addra
+  .addra(addra),  // input wire [13 : 0] addra
   .dina(dina),    // input wire [31 : 0] dina
   .douta(douta)  // output wire [31 : 0] douta
 );

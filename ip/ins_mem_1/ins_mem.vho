@@ -55,7 +55,7 @@ COMPONENT ins_mem
   PORT (
     clka : IN STD_LOGIC;
     ena : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(31 DOWNTO 0) 
   );
 END COMPONENT;

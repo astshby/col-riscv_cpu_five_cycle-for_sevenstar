@@ -35,3 +35,243 @@ Final sink:                801
 Done.
 - :0: Verilog $finish
 make[2]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+make[2]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+rm -f build/results.xml
+mkdir -p build/sim_build
+/usr/local/bin/verilator -cc --exe -Mdir build/sim_build --top-module TB --timescale 1ns/1ps --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator" --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/top/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/core/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/for_tb/*.sv /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+make -C build/sim_build  -f Vtop.mk
+make[3]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -Os  -c -o verilator.o /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_dpi.o /usr/local/share/verilator/include/verilated_dpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_vpi.o /usr/local/share/verilator/include/verilated_vpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_fst_c.o /usr/local/share/verilator/include/verilated_fst_c.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vtop.cpp Vtop___024root__0.cpp Vtop__Dpi.cpp Vtop__Trace__0.cpp Vtop__ConstPool__0__Slow.cpp Vtop___024root__Slow.cpp Vtop___024root__0__Slow.cpp Vtop__Syms__Slow.cpp Vtop__Trace__0__Slow.cpp Vtop__TraceDecls__0__Slow.cpp > Vtop__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o Vtop__ALL.o Vtop__ALL.cpp
+echo "" > Vtop__ALL.verilator_deplist.tmp
+if test 0 -eq 0; then \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -s Vtop__ALL.a; \
+else \
+	rm -f -rf Vtop__ALL.a.tmpdir; \
+	for archive in ; do \
+		mkdir -p Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		cd Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		ar -x ../../${archive}; \
+		cd ../..; \
+	done; \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -rcs Vtop__ALL.a Vtop__ALL.a.tmpdir/*/*.o; \
+fi \
+; rm -f -rf Vtop__ALL.a.verilator_deplist.tmp Vtop__ALL.a.tmpdir
+g++ -fuse-ld=mold   verilator.o verilated.o verilated_dpi.o verilated_vpi.o verilated_fst_c.o verilated_threads.o Vtop__ALL.a   -Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator -lz  -pthread -lpthread -latomic   -o Vtop
+make[3]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+/home/hbyasts/cpu-use/cocotb/src/cocotb_tools/makefiles/simulators/Makefile.verilator:69: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f build/results.xml
+COCOTB_TEST_MODULES=test COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=TB TOPLEVEL_LANG=verilog \
+         build/sim_build/Vtop  --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include  release 
+/home/hbyasts/anaconda3/bin/python3.13 -m cocotb_tools.check_results build/results.xml
+make[2]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+make[2]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+rm -f build/results.xml
+mkdir -p build/sim_build
+/usr/local/bin/verilator -cc --exe -Mdir build/sim_build --top-module TB --timescale 1ns/1ps --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator" --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/top/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/core/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/for_tb/*.sv /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+make -C build/sim_build  -f Vtop.mk
+make[3]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -Os  -c -o verilator.o /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_dpi.o /usr/local/share/verilator/include/verilated_dpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_vpi.o /usr/local/share/verilator/include/verilated_vpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_fst_c.o /usr/local/share/verilator/include/verilated_fst_c.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vtop.cpp Vtop___024root__0.cpp Vtop__Dpi.cpp Vtop__Trace__0.cpp Vtop__ConstPool__0__Slow.cpp Vtop___024root__Slow.cpp Vtop___024root__0__Slow.cpp Vtop__Syms__Slow.cpp Vtop__Trace__0__Slow.cpp Vtop__TraceDecls__0__Slow.cpp > Vtop__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o Vtop__ALL.o Vtop__ALL.cpp
+echo "" > Vtop__ALL.verilator_deplist.tmp
+if test 0 -eq 0; then \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -s Vtop__ALL.a; \
+else \
+	rm -f -rf Vtop__ALL.a.tmpdir; \
+	for archive in ; do \
+		mkdir -p Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		cd Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		ar -x ../../${archive}; \
+		cd ../..; \
+	done; \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -rcs Vtop__ALL.a Vtop__ALL.a.tmpdir/*/*.o; \
+fi \
+; rm -f -rf Vtop__ALL.a.verilator_deplist.tmp Vtop__ALL.a.tmpdir
+g++ -fuse-ld=mold   verilator.o verilated.o verilated_dpi.o verilated_vpi.o verilated_fst_c.o verilated_threads.o Vtop__ALL.a   -Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator -lz  -pthread -lpthread -latomic   -o Vtop
+make[3]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+/home/hbyasts/cpu-use/cocotb/src/cocotb_tools/makefiles/simulators/Makefile.verilator:69: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f build/results.xml
+COCOTB_TEST_MODULES=test COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=TB TOPLEVEL_LANG=verilog \
+         build/sim_build/Vtop  --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include  release 
+/home/hbyasts/anaconda3/bin/python3.13 -m cocotb_tools.check_results build/results.xml
+make[2]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+make[2]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+rm -f build/results.xml
+mkdir -p build/sim_build
+/usr/local/bin/verilator -cc --exe -Mdir build/sim_build --top-module TB --timescale 1ns/1ps --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator" --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/top/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/core/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/for_tb/*.sv /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+make -C build/sim_build  -f Vtop.mk
+make[3]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -Os  -c -o verilator.o /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_dpi.o /usr/local/share/verilator/include/verilated_dpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_vpi.o /usr/local/share/verilator/include/verilated_vpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_fst_c.o /usr/local/share/verilator/include/verilated_fst_c.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vtop.cpp Vtop___024root__0.cpp Vtop__Dpi.cpp Vtop__Trace__0.cpp Vtop__ConstPool__0__Slow.cpp Vtop___024root__Slow.cpp Vtop___024root__0__Slow.cpp Vtop__Syms__Slow.cpp Vtop__Trace__0__Slow.cpp Vtop__TraceDecls__0__Slow.cpp > Vtop__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o Vtop__ALL.o Vtop__ALL.cpp
+echo "" > Vtop__ALL.verilator_deplist.tmp
+if test 0 -eq 0; then \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -s Vtop__ALL.a; \
+else \
+	rm -f -rf Vtop__ALL.a.tmpdir; \
+	for archive in ; do \
+		mkdir -p Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		cd Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		ar -x ../../${archive}; \
+		cd ../..; \
+	done; \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -rcs Vtop__ALL.a Vtop__ALL.a.tmpdir/*/*.o; \
+fi \
+; rm -f -rf Vtop__ALL.a.verilator_deplist.tmp Vtop__ALL.a.tmpdir
+g++ -fuse-ld=mold   verilator.o verilated.o verilated_dpi.o verilated_vpi.o verilated_fst_c.o verilated_threads.o Vtop__ALL.a   -Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator -lz  -pthread -lpthread -latomic   -o Vtop
+make[3]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+/home/hbyasts/cpu-use/cocotb/src/cocotb_tools/makefiles/simulators/Makefile.verilator:69: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f build/results.xml
+COCOTB_TEST_MODULES=test COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=TB TOPLEVEL_LANG=verilog \
+         build/sim_build/Vtop  --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include  release 
+/home/hbyasts/anaconda3/bin/python3.13 -m cocotb_tools.check_results build/results.xml
+make[2]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+make[2]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+rm -f build/results.xml
+mkdir -p build/sim_build
+/usr/local/bin/verilator -cc --exe -Mdir build/sim_build --top-module TB --timescale 1ns/1ps --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator" --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/top/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/core/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/for_tb/*.sv /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+make -C build/sim_build  -f Vtop.mk
+make[3]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -Os  -c -o verilator.o /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_dpi.o /usr/local/share/verilator/include/verilated_dpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_vpi.o /usr/local/share/verilator/include/verilated_vpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_fst_c.o /usr/local/share/verilator/include/verilated_fst_c.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vtop.cpp Vtop___024root__0.cpp Vtop__Dpi.cpp Vtop__Trace__0.cpp Vtop__ConstPool__0__Slow.cpp Vtop___024root__Slow.cpp Vtop___024root__0__Slow.cpp Vtop__Syms__Slow.cpp Vtop__Trace__0__Slow.cpp Vtop__TraceDecls__0__Slow.cpp > Vtop__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o Vtop__ALL.o Vtop__ALL.cpp
+echo "" > Vtop__ALL.verilator_deplist.tmp
+if test 0 -eq 0; then \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -s Vtop__ALL.a; \
+else \
+	rm -f -rf Vtop__ALL.a.tmpdir; \
+	for archive in ; do \
+		mkdir -p Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		cd Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		ar -x ../../${archive}; \
+		cd ../..; \
+	done; \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -rcs Vtop__ALL.a Vtop__ALL.a.tmpdir/*/*.o; \
+fi \
+; rm -f -rf Vtop__ALL.a.verilator_deplist.tmp Vtop__ALL.a.tmpdir
+g++ -fuse-ld=mold   verilator.o verilated.o verilated_dpi.o verilated_vpi.o verilated_fst_c.o verilated_threads.o Vtop__ALL.a   -Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator -lz  -pthread -lpthread -latomic   -o Vtop
+make[3]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+/home/hbyasts/cpu-use/cocotb/src/cocotb_tools/makefiles/simulators/Makefile.verilator:69: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f build/results.xml
+COCOTB_TEST_MODULES=test COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=TB TOPLEVEL_LANG=verilog \
+         build/sim_build/Vtop  --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include  release 
+/home/hbyasts/anaconda3/bin/python3.13 -m cocotb_tools.check_results build/results.xml
+make[2]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+make[2]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+rm -f build/results.xml
+mkdir -p build/sim_build
+/usr/local/bin/verilator -cc --exe -Mdir build/sim_build --top-module TB --timescale 1ns/1ps --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator" --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/top/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/core/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/for_tb/*.sv /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+make -C build/sim_build  -f Vtop.mk
+make[3]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -Os  -c -o verilator.o /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_dpi.o /usr/local/share/verilator/include/verilated_dpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_vpi.o /usr/local/share/verilator/include/verilated_vpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_fst_c.o /usr/local/share/verilator/include/verilated_fst_c.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vtop.cpp Vtop___024root__0.cpp Vtop__Dpi.cpp Vtop__Trace__0.cpp Vtop__ConstPool__0__Slow.cpp Vtop___024root__Slow.cpp Vtop___024root__0__Slow.cpp Vtop__Syms__Slow.cpp Vtop__Trace__0__Slow.cpp Vtop__TraceDecls__0__Slow.cpp > Vtop__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o Vtop__ALL.o Vtop__ALL.cpp
+echo "" > Vtop__ALL.verilator_deplist.tmp
+if test 0 -eq 0; then \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -s Vtop__ALL.a; \
+else \
+	rm -f -rf Vtop__ALL.a.tmpdir; \
+	for archive in ; do \
+		mkdir -p Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		cd Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		ar -x ../../${archive}; \
+		cd ../..; \
+	done; \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -rcs Vtop__ALL.a Vtop__ALL.a.tmpdir/*/*.o; \
+fi \
+; rm -f -rf Vtop__ALL.a.verilator_deplist.tmp Vtop__ALL.a.tmpdir
+g++ -fuse-ld=mold   verilator.o verilated.o verilated_dpi.o verilated_vpi.o verilated_fst_c.o verilated_threads.o Vtop__ALL.a   -Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator -lz  -pthread -lpthread -latomic   -o Vtop
+make[3]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+/home/hbyasts/cpu-use/cocotb/src/cocotb_tools/makefiles/simulators/Makefile.verilator:69: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f build/results.xml
+COCOTB_TEST_MODULES=test COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=TB TOPLEVEL_LANG=verilog \
+         build/sim_build/Vtop  --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include  release 
+/home/hbyasts/anaconda3/bin/python3.13 -m cocotb_tools.check_results build/results.xml
+make[2]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+make[2]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'
+rm -f build/results.xml
+mkdir -p build/sim_build
+/usr/local/bin/verilator -cc --exe -Mdir build/sim_build --top-module TB --timescale 1ns/1ps --vpi --public-flat-rw --prefix Vtop -o Vtop -LDFLAGS "-Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator" --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/top/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/core/*.sv /home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/for_tb/*.sv /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+make -C build/sim_build  -f Vtop.mk
+make[3]: Entering directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -Os  -c -o verilator.o /home/hbyasts/cpu-use/cocotb/src/cocotb/share/lib/verilator/verilator.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_dpi.o /usr/local/share/verilator/include/verilated_dpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_vpi.o /usr/local/share/verilator/include/verilated_vpi.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_fst_c.o /usr/local/share/verilator/include/verilated_fst_c.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vtop.cpp Vtop___024root__0.cpp Vtop__Dpi.cpp Vtop__Trace__0.cpp Vtop__ConstPool__0__Slow.cpp Vtop___024root__Slow.cpp Vtop___024root__0__Slow.cpp Vtop__Syms__Slow.cpp Vtop__Trace__0__Slow.cpp Vtop__TraceDecls__0__Slow.cpp > Vtop__ALL.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVERILATOR=1 -DVM_COVERAGE=0 -DVM_SC=0 -DVM_TIMING=0 -DVM_TRACE=1 -DVM_TRACE_FST=1 -DVM_TRACE_VCD=0 -DVM_TRACE_SAIF=0 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-int-in-bool-context -Wno-shadow -Wno-sign-compare -Wno-subobject-linkage -Wno-tautological-compare -Wno-uninitialized -Wno-unused-but-set-parameter -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable      -c -o Vtop__ALL.o Vtop__ALL.cpp
+echo "" > Vtop__ALL.verilator_deplist.tmp
+if test 0 -eq 0; then \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -s Vtop__ALL.a; \
+else \
+	rm -f -rf Vtop__ALL.a.tmpdir; \
+	for archive in ; do \
+		mkdir -p Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		cd Vtop__ALL.a.tmpdir/$(basename ${archive}); \
+		ar -x ../../${archive}; \
+		cd ../..; \
+	done; \
+	rm -f -f Vtop__ALL.a; \
+	cat Vtop__ALL.a.verilator_deplist.tmp | xargs ar -rc Vtop__ALL.a; \
+	ar -rcs Vtop__ALL.a Vtop__ALL.a.tmpdir/*/*.o; \
+fi \
+; rm -f -rf Vtop__ALL.a.verilator_deplist.tmp Vtop__ALL.a.tmpdir
+g++ -fuse-ld=mold   verilator.o verilated.o verilated_dpi.o verilated_vpi.o verilated_fst_c.o verilated_threads.o Vtop__ALL.a   -Wl,-rpath,/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -L/home/hbyasts/cpu-use/cocotb/src/cocotb/libs -lcocotbvpi_verilator -lz  -pthread -lpthread -latomic   -o Vtop
+make[3]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/build/sim_build'
+/home/hbyasts/cpu-use/cocotb/src/cocotb_tools/makefiles/simulators/Makefile.verilator:69: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f build/results.xml
+COCOTB_TEST_MODULES=test COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=TB TOPLEVEL_LANG=verilog \
+         build/sim_build/Vtop  --trace --trace-structs --trace-fst --timing -j 8 -I/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate/vsrc/include  release 
+/home/hbyasts/anaconda3/bin/python3.13 -m cocotb_tools.check_results build/results.xml
+make[2]: Leaving directory '/home/hbyasts/3-cpu-collaboration/archive/cpu-5-collaborate'

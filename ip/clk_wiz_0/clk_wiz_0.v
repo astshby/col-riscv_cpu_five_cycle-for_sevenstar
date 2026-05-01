@@ -1,10 +1,11 @@
-// (c) Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-// (c) Copyright 2022-2026 Advanced Micro Devices, Inc. All rights reserved.
-// 
+
+// file: clk_wiz_0.v
+// (c) Copyright 2017-2018, 2023 Advanced Micro Devices, Inc. All rights reserved.
+//
 // This file contains confidential and proprietary information
 // of AMD and is protected under U.S. and international copyright
 // and other intellectual property laws.
-// 
+//
 // DISCLAIMER
 // This disclaimer is not a license and does not grant any
 // rights to the materials distributed herewith. Except as
@@ -26,7 +27,7 @@
 // by a third party) even if such damage or loss was
 // reasonably foreseeable or AMD had been advised of the
 // possibility of the same.
-// 
+//
 // CRITICAL APPLICATIONS
 // AMD products are not designed or intended to be fail-
 // safe, or for use in any application requiring fail-safe
@@ -40,29 +41,49 @@
 // liability of any use of AMD products in Critical
 // Applications, subject only to applicable laws and
 // regulations governing limitations on product liability.
-// 
+//
 // THIS COPYRIGHT NOTICE AND DISCLAIMER MUST BE RETAINED AS
 // PART OF THIS FILE AT ALL TIMES.
-// 
-// DO NOT MODIFY THIS FILE.
+//----------------------------------------------------------------------------
+// User entered comments
+//----------------------------------------------------------------------------
+// None
+//
+//----------------------------------------------------------------------------
+//  Output     Output      Phase    Duty Cycle   Pk-to-Pk     Phase
+//   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
+//----------------------------------------------------------------------------
+// clk_out1__50.00000______0.000______50.0______151.636_____98.575
+//
+//----------------------------------------------------------------------------
+// Input Clock   Freq (MHz)    Input Jitter (UI)
+//----------------------------------------------------------------------------
+// __primary_________100.000____________0.010
 
-// IP VLNV: xilinx.com:ip:blk_mem_gen:8.4
-// IP Revision: 7
+`timescale 1ps/1ps
 
-// The following must be inserted into your Verilog file for this
-// core to be instantiated. Change the instance name and port connections
-// (in parentheses) to your own signal names.
+(* CORE_GENERATION_INFO = "clk_wiz_0,clk_wiz_v6_0_13_0_0,{component_name=clk_wiz_0,use_phase_alignment=true,use_min_o_jitter=false,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,enable_axi=0,feedback_source=FDBK_AUTO,PRIMITIVE=MMCM,num_out_clk=1,clkin1_period=10.000,clkin2_period=10.000,use_power_down=false,use_reset=true,use_locked=true,use_inclk_stopped=false,feedback_type=SINGLE,CLOCK_MGR_TYPE=NA,manual_override=false}" *)
 
-//----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
-ins_mem your_instance_name (
-  .clka(clka),    // input wire clka
-  .ena(ena),      // input wire ena
-  .addra(addra),  // input wire [13 : 0] addra
-  .douta(douta)  // output wire [31 : 0] douta
-);
-// INST_TAG_END ------ End INSTANTIATION Template ---------
+module clk_wiz_0 
+ (
+  // Clock out ports
+  output        clk_out1,
+  // Status and control signals
+  input         reset,
+  output        locked,
+ // Clock in ports
+  input         clk_in1
+ );
 
-// You must compile the wrapper file ins_mem.v when simulating
-// the core, ins_mem. When compiling the wrapper file, be sure to
-// reference the Verilog simulation library.
+  clk_wiz_0_clk_wiz inst
+  (
+  // Clock out ports  
+  .clk_out1(clk_out1),
+  // Status and control signals               
+  .reset(reset), 
+  .locked(locked),
+ // Clock in ports
+  .clk_in1(clk_in1)
+  );
 
+endmodule
